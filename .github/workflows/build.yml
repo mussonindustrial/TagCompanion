@@ -34,6 +34,7 @@ jobs:
         run: |
           copy ".\settings.json" ".\dist\settings.json"
           copy ".\hotstrings.json" ".\dist\hotstrings.json"
+          copy ".\LICENSE" ".\dist\LICENSE"
           xcopy ".\images\" ".\dist\images\" /E /H /C /I
           
       - name: Zip Dist Folder
