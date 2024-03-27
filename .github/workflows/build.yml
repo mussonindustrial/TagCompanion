@@ -32,9 +32,9 @@ jobs:
       - name: Copy Required Files
         shell: pwsh
         run: |
-          xcopy ".\settings.json" ".\dist\settings.json"
-          xcopy ".\hotstrings.json" ".\dist\hotstrings.json"
-          xcopy ".\images" ".\dist\images" /s /e /h
+          copy ".\settings.json" ".\dist\settings.json"
+          copy ".\hotstrings.json" ".\dist\hotstrings.json"
+          xcopy ".\images\" ".\dist\images\" /E /H /C /I
           
       - name: Zip Dist Folder
         uses: vimtor/action-zip@v1.2
