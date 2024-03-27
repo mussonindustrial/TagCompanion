@@ -1,0 +1,15 @@
+{
+	"delay": {
+		"control": 20,
+		"window": 20
+	},
+	"hotstrings": {
+		"enabled": 0,
+		"filePath": "hotstrings.json"
+	},
+	"increment": {
+		"down": -1,
+		"mode": "first",
+		"up": 1
+	}
+}

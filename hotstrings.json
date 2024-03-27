@@ -1,0 +1,79 @@
+{
+	"hotstrings": [
+		{
+			"key": "#--",
+			"options": "*O",
+			"replacement": "-------------------------\nBlockComment\n-------------------------{Up}^+{Left}"
+		},
+		{
+			"key": "#==",
+			"options": "*O",
+			"replacement": "==============\nBlockComment\n=============={Up}^+{Left}"
+		},
+		{
+			"key": "#cmd",
+			"options": "O",
+			"replacement": "Command\n"
+		},
+		{
+			"key": "#ocmd",
+			"options": "O",
+			"replacement": "1=Operator Command to "
+		},
+		{
+			"key": "#ocmd.${action}",
+			"options": "O",
+			"replacement": "1=Operator Command to ${action}"
+		},
+		{
+			"key": "#ordy",
+			"options": "O",
+			"replacement": "1=Ready for Operator Command to "
+		},
+		{
+			"key": "#ordy.${action}",
+			"options": "O",
+			"replacement": "1=Ready for Operator Command to ${action}"
+		},
+		{
+			"key": "#pcmd",
+			"options": "O",
+			"replacement": "1=Program Command to "
+		},
+		{
+			"key": "#pcmd.${action}",
+			"options": "O",
+			"replacement": "1=Program Command to ${action}"
+		},
+		{
+			"key": "#r.ocmd.${action}",
+			"options": "O",
+			"replacement": "XIC(OCmd_${action})OTU(OCmd_${action})XIC(Ordy_${action})OTE(?);\n"
+		},
+		{
+			"key": "#sts",
+			"options": "O",
+			"replacement": "Status\n"
+		},
+		{
+			"key": "#test",
+			"options": "OT",
+			"replacement": "#cmd"
+		},
+		{
+			"key": "#wrk",
+			"options": "O",
+			"replacement": "Working Register\n"
+		},
+		{
+			"key": "..${index}",
+			"options": "O?",
+			"replacement": "[${index}]"
+		},
+		{
+			"key": "..${index}.${bit}",
+			"options": "O?",
+			"replacement": "[${index}].${bit}"
+		}
+	]
+}

@@ -71,7 +71,7 @@ class RegExHk extends InputHook {
 				temp := A_LoopField
 			}
 			this.str := this.opt["?"] ? this.str "$" : "^" this.str "$"
-			this.str := this.opt["C"] ? this.str : "i)" this.str
+			this.str := this.opt["C"] ? this.str : "xi)" this.str
 
 			switch on {
 				case "On", 1, true:
@@ -117,10 +117,14 @@ class RegExHk extends InputHook {
 
 	OnKeyDown := this.keyDown
 	keyDown(vk, sc) {
+
 		switch vk {
 			case 8:
 				Send("{Blind}{vk08 down}")
-			case 9, 13, 32:
+			case 32:
+				; check for match, but do not clear
+				this.match(this.a0, SubStr(this.Input, 1, StrLen(this.Input) - 1),(*) => Send("{Blind}{vk" Format("{:02x}", vk) " down}"))
+			case 9, 13:
 				; clear input if not match
 				if (!this.match(this.a0,
 					SubStr(this.Input, 1, StrLen(this.Input) - 1),
