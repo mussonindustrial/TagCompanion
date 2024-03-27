@@ -25,14 +25,32 @@ jobs:
           x64: true
           x86: true
           compression: upx
-          in: 
-          out: build
+          in: ""
+          out: dist
           icon: /images/favicon.ico
+          
+      - name: Copy Default Settings
+        uses: canastro/copy-file-action@master
+        with:
+          source: "settings.json"
+          target: "dist/settings.json"
 
-      - name: Zip Build Folder
+      - name: Copy Default Hotstrings
+        uses: canastro/copy-file-action@master
+        with:
+          source: "hotstrings.json"
+          target: "dist/hotstrings.json"
+
+      - name: Copy Images
+        uses: canastro/copy-file-action@master
+        with:
+          source: "images/"
+          target: "dist/images/"
+
+      - name: Zip Dist Folder
         uses: vimtor/action-zip@v1.2
         with:
-          files: build/
+          files: dist/
           dest: TagCompanion.zip
           
       - name: Create Draft Release
@@ -53,7 +71,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./TagCompanion.zip
-          asset_name: TagCompanion-'${{ github.event.inputs.tag_name }}'.zip
+          asset_name: TagCompanion-${{ github.event.inputs.tag_name }}.zip
           asset_content_type: application/zip
   
       - name: Publish Release
