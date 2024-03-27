@@ -28,25 +28,14 @@ jobs:
           in: ""
           out: dist
           icon: /images/favicon.ico
+
+      - name: Copy Required Files
+        shell: pwsh
+        run: |
+          copy settings.json dist\settings.json
+          copy hotstrings.json dist\hotstrings.json
+          xcopy images dist\images /s /e /h
           
-      - name: Copy Default Settings
-        uses: canastro/copy-file-action@master
-        with:
-          source: "settings.json"
-          target: "dist/settings.json"
-
-      - name: Copy Default Hotstrings
-        uses: canastro/copy-file-action@master
-        with:
-          source: "hotstrings.json"
-          target: "dist/hotstrings.json"
-
-      - name: Copy Images
-        uses: canastro/copy-file-action@master
-        with:
-          source: "images/"
-          target: "dist/images/"
-
       - name: Zip Dist Folder
         uses: vimtor/action-zip@v1.2
         with:
