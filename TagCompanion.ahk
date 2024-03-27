@@ -15,7 +15,7 @@ guiCommon := {
  * Tray definition 
  */
 A_IconTip := "Tag Companion"
-;TraySetIcon( A_WorkingDir . "\images\favicon.ico",,true)
+TraySetIcon( A_WorkingDir . "\images\favicon.ico",,true)
 TrayTip("(Win + H) to Open...", "Tag Companion Started")
 
 
