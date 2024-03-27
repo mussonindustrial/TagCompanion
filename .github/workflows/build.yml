@@ -34,7 +34,7 @@ jobs:
         run: |
           copy settings.json dist\settings.json
           copy hotstrings.json dist\hotstrings.json
-          xcopy images dist\images /s /e /h
+          xcopy .\images .\dist\images /s /e /h
           
       - name: Zip Dist Folder
         uses: vimtor/action-zip@v1.2
