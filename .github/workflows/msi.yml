@@ -29,19 +29,19 @@ jobs:
           x64_suffix: ""
           icon: /images/favicon.ico
           
-      - name: Install go-msi
-        run: choco install -y "go-msi"
-
-      - name: Build Windows Installer MSI from exe file
-        uses: AliceOh/CreateWindowsInstaller@1.0.0
-        with:
-          exefile: 'TagCompanion.exe'
-          version: '${{ github.event.inputs.version }}'
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        
+      - name: Install WiX
+        run: dotnet tool install --global wix
+        
+      - name: Build WiX
+        run: wix build .\Installer.wxs
 
       - name: Rename MSI
         shell: pwsh
         run: |
-          Rename-Item -Path "TagCompanion.exe.msi" -NewName "TagCompanion-${{ github.event.inputs.version }}.msi"
+          Rename-Item -Path "Installer.msi" -NewName "TagCompanion-${{ github.event.inputs.version }}.msi"
 
       - name: Release
         uses: softprops/action-gh-release@v2
