@@ -44,7 +44,7 @@
      
           <DirectoryRef Id="INSTALLDIR">
                <Component Id="TagCompanionInstall">
-                    <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />   
+                    <File Id="TagCompanion.exe" Source="..\\TagCompanion.exe" KeyPath="yes" />   
                </Component>
            </DirectoryRef>
      
