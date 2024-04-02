@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*"
+           Language="1033"
+           Manufacturer="Musson Industrial"
+           Name="Tag Companion"
+           UpgradeCode="8e817a2d-341f-4260-89ad-eeb676d08b9d"
+           Version="0.0.1.0">
+
+    <Package InstallScope="perMachine" Compressed="yes" />
+
+    <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Tag Companion">
+          <Component Id="ProductComponent">
+            <File KeyPath="yes" Source="TagCompanion.exe"></File>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+</Product>
+</Wix>
