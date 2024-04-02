@@ -31,7 +31,7 @@
         "target": "[INSTALLDIR]\\TagCompanion.exe",
         "wdir": "INSTALLDIR",
         "arguments": "",
-        "icon": "\\images\\favicon.ico"
+        "icon": "images\\favicon.ico"
       }
     ]
   },
