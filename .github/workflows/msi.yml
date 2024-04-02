@@ -40,5 +40,8 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: 'TagCompanion_x64.exe.msi'
+          tag_name: '${{ github.event.inputs.version }}'
+          make_latest: true
