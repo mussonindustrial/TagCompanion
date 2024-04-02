@@ -111,7 +111,7 @@
                          Name="Tag Companion"
                          Target="[INSTALLDIR]TagCompanion.exe"
                          WorkingDirectory="INSTALLDIR"/>
-                    <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+                    <RemoveFolder Id="RemoveStartMenuFolder" On="uninstall"/>
                </Component>
           </DirectoryRef>     
 
