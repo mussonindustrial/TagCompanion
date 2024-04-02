@@ -9,9 +9,6 @@
 
      <?define RegistryKeyPath = "SOFTWARE\MussonIndustrial\TagCompanion" ?>
 
-     <?define RepoDir="$(var.ProjectDir)..\..\..\..\" ?>
-     <?define SourceDir="$(var.RepoDir)\$(var.Configuration)\" ?>
-
      <Package Name="$(var.ProductName)"
            Version="$(var.ProductVersion)"
            Manufacturer="$(var.ProductAuthor)"
