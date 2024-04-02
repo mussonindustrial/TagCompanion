@@ -12,7 +12,8 @@
           Version="$(var.ProductVersion)"
           Manufacturer="$(var.ProductAuthor)"
           UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
-          InstallerVersion="200">
+          InstallerVersion="200"
+          Scope="perUser">
 
           <SummaryInformation Description="Tag Companion" />
 
