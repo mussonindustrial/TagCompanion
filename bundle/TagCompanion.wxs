@@ -29,12 +29,12 @@
           <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
      
           <Feature Id="TagCompanion" Title="Tag Companion">
-               <ComponentGroupRef Id="TagCompanionInstall"/>
+               <ComponentRef Id="TagCompanion.exe"/>
           </Feature>
      
      
           <StandardDirectory Id="ProgramFiles6432Folder">
-             <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
+             <Directory Id="INSTALLDIR" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
           </StandardDirectory>
      
           <StandardDirectory Id="ProgramMenuFolder">
