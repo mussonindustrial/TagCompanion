@@ -75,7 +75,7 @@
            </DirectoryRef>
 
           <DirectoryRef Id="TagCompanionDataFolder">
-               <Component Id="Settings">
+               <Component Id="Settings" Guid="fbed7e12-ac5e-4f25-baef-cdb71d26defc">
                     <RegistryValue Root="HKCU"
                          Key="$(var.RegistryKeyPath)\Components"
                          Name="SettingsJson"
@@ -85,7 +85,7 @@
                     <File Id="settings.json" Source="..\\settings.json" />
                     <RemoveFolder Id='TagCompanionDataFolder' On='uninstall' />
                </Component>
-               <Component Id="Hotstrings">
+               <Component Id="Hotstrings" Guid="3f1f08a9-c6a5-45ca-8f15-0c734a2a5880">
                     <RegistryValue Root="HKCU"
                          Key="$(var.RegistryKeyPath)\Components"
                          Name="HostringsJson"
