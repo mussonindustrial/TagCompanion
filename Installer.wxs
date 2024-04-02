@@ -1,42 +1,71 @@
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
      xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-  <Package  Name="Tag Companion" 
-            Manufacturer="Musson Industrial" 
-            Version="1.0.0.0" 
-            UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
-            InstallerVersion="200">
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-    <MediaTemplate EmbedCab="yes" />
 
-    <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
+     <?define ProductName = "Tag Companion" ?>
+     <?define ProductDescription = "Faster and easier Studio5000 tag creation." ?>
+     <?define ProductAuthor = "Musson Industrial" ?>
+     <?define ProductVersion = 1.0.0.2" ?>
 
-    <StandardDirectory Id="ProgramFiles6432Folder">
-        <!-- Create a folder within the parent folder given the name -->
-        <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
-    </StandardDirectory>
+     <?define RegistryKeyPath = "SOFTWARE\MussonIndustrial\TagCompanion" ?>
 
-    <StandardDirectory Id="ProgramMenuFolder">
-        <!-- Create a folder within the parent folder given the name -->
-        <Directory Id="STARTFOLDER" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
-    </StandardDirectory>
+     <?define RepoDir="$(var.ProjectDir)..\..\..\..\" ?>
+     <?define SourceDir="$(var.RepoDir)\$(var.Configuration)\" ?>
 
+     <Package Name="$(var.ProductName)"
+           Version="$(var.ProductVersion)"
+           Manufacturer="$(var.ProductAuthor)"
+           UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
+           InstallerVersion="200">
 
-
-    <ComponentGroup Id="TagCompanionInstall" Directory="INSTALLFOLDER">
-      <Component Id="TagCompanion.exe" Guid="9fbfa205-5ee1-4e7c-8f21-a7f1058bcb42">
-        <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />           
-      </Component>
-    </ComponentGroup>
-
-    <Icon Id="favicon.exe" SourceFile="images\\favicon.ico" />
-
-    <Feature Id="TagCompanion" Title="Tag Companion">
-      <ComponentGroupRef Id="TagCompanionInstall"/>
-    </Feature>
-
-     <ui:WixUI
-       Id="WixUI_InstallDir"
-       InstallDirectory="INSTALLFOLDER"
-     />
-  </Package>
+         <Launch Condition="Installed OR (VersionNT &gt;= 603) OR (VersionNT &gt;= 602 AND MsiNTProductType &lt;&gt; 1)" Message="This application is only supported on Windows 8.1, Windows Server 2012 R2, or higher." />
+     
+         <Media Id="1" Cabinet="media1.cab" EmbedCab="yes"/>
+     
+         <MajorUpgrade AllowSameVersionUpgrades="yes"
+                       DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
+     
+          <Icon Id="favicon.exe" SourceFile="images\\favicon.ico" />
+          <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
+          <Property Id="ApplicationFolderName" Value="Musson Industrial"/>
+          <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+     
+          <Feature Id="TagCompanion" Title="Tag Companion">
+               <ComponentGroupRef Id="TagCompanionInstall"/>
+          </Feature>
+     
+     
+          <StandardDirectory Id="ProgramFiles6432Folder">
+             <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
+          </StandardDirectory>
+     
+          <StandardDirectory Id="ProgramMenuFolder">
+             <Directory Id="ApplicationProgramsFolder" Name="!(bind.Property.Manufacturer)" />
+          </StandardDirectory>
+     
+          <DirectoryRef Id="INSTALLDIR">
+               <Component Id="TagCompanion.exe">
+                    <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />   
+               </Component>
+           </DirectoryRef>
+     
+         <DirectoryRef Id="ApplicationProgramsFolder">
+           <Component Id="TagCompanionStartMenu">
+             <!-- RegistryValue needed because every Component must have a KeyPath.
+                  Because of ICE43, the Root must be HKCU. -->
+             <RegistryValue Root="HKCU"
+                            Key="$(var.RegistryKeyPath)\Components"
+                            Name="TagCompanionStartMenuShortcuts"
+                            Type="integer"
+                            Value="1"
+                            KeyPath="yes"/>
+             <Shortcut Id="TagCompanionShortcut"
+                       Name="Tag Companion"
+                       Target="[INSTALLDIR]TagCompanion.exe"
+                       WorkingDirectory="INSTALLDIR"/>
+             <RemoveFolder Id="RemoveApplicationProgramsFolder"
+                           On="uninstall"/>
+           </Component>
+         </DirectoryRef>
+     </Package>
 </Wix>
