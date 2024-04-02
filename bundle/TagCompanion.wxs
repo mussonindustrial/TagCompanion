@@ -12,8 +12,7 @@
           Version="$(var.ProductVersion)"
           Manufacturer="$(var.ProductAuthor)"
           UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
-          InstallerVersion="200"
-          InstallScope="perMachine">
+          InstallerVersion="200">
 
           <SummaryInformation Description="Tag Companion" />
 
@@ -36,6 +35,7 @@
           <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
           <Property Id="ApplicationFolderName" Value="Musson Industrial"/>
           <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+          <Property Id="ALLUSERS" Value="1"></Property>
      
           <Feature Id="TagCompanion" Title="Tag Companion" AllowAbsent="no">
                <ComponentRef Id="TagCompanion.exe"/>
