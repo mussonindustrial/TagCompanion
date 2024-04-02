@@ -1,0 +1,50 @@
+name: Publish
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+        default: '0.0.0'
+      release_name:
+        description: 'Release Name'
+        required: true
+        default: 'draft'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build with AHK v2.0.12
+        uses: nukdokplex/autohotkey-build@v0.1
+        with:
+          version: v2.0.12
+          x64: true
+          x86: true
+          compression: upx
+          in: ""
+          out: dist
+          icon: /images/favicon.ico
+          
+      - name: Install go-msi
+        run: choco install -y "go-msi"
+
+      - name: Build Windows Installer MSI from exe file
+        uses: AliceOh/CreateWindowsInstaller@1.0.0
+        with:
+          exefile: 'TagCompanion_x64.exe'
+          version: '${{ github.event.inputs.version }}'
+
+      - name: Upload MSI for Windows to release page
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: '${{ github.event.inputs.release_name }}'
+          files: |
+           "TagCompanion_x64.exe"
+            
