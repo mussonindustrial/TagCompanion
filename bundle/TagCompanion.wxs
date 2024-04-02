@@ -36,10 +36,12 @@
           <Property Id="ApplicationFolderName" Value="Musson Industrial"/>
           <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
      
-          <Feature Id="TagCompanion" Title="Tag Companion">
+          <Feature Id="TagCompanion" Title="Tag Companion" AllowAbsent="no">
                <ComponentRef Id="TagCompanion.exe"/>
-               <ComponentRef Id="settings.json"/>
-               <ComponentRef Id="hotstrings.json"/>
+               <ComponentRef Id="Settings"/>
+               <ComponentRef Id="Hotstrings"/>
+               <ComponentRef Id="ImageLogo"/>
+               <ComponentRef Id="ImageIcon"/>
           </Feature>
           <Feature Id="Shortcuts" Title="Start Menu Shortcut">
                <ComponentRef Id="TagCompanionStartMenu"/>
@@ -58,37 +60,45 @@
                <Component Id="TagCompanion.exe">
                     <File Id="TagCompanion.exe" Source="..\\TagCompanion.exe" KeyPath="yes" />
                </Component>
-               <Component Id="settings.json">
+               <Component Id="Settings">
                     <File Id="settings.json" Source="..\\settings.json" KeyPath="yes" />
                </Component>
-               <Component Id="hotstrings.json">
+               <Component Id="Hotstrings">
                     <File Id="hotstrings.json" Source="..\\hotstrings.json" KeyPath="yes" />
                </Component>
+               <Directory Id="ImagesFolder" Name="images">
+                    <Component Id="ImageLogo">
+                         <File Id="logo.png" KeyPath="yes" Source="..\\images\\logo.png"/>
+                    </Component>
+                    <Component Id="ImageIcon">
+                         <File Id="favicon.icon" KeyPath="yes" Source="..\\images\\favicon.icon"/>
+                    </Component>
+               </Directory>
            </DirectoryRef>
      
-         <DirectoryRef Id="ApplicationProgramsFolder">
-           <Component Id="TagCompanionStartMenu">
-             <!-- RegistryValue needed because every Component must have a KeyPath.
-                  Because of ICE43, the Root must be HKCU. -->
-             <RegistryValue Root="HKCU"
-                            Key="$(var.RegistryKeyPath)\Components"
-                            Name="TagCompanionStartMenuShortcuts"
-                            Type="integer"
-                            Value="1"
-                            KeyPath="yes"/>
-             <Shortcut Id="TagCompanionShortcut"
-                       Name="Tag Companion"
-                       Target="[INSTALLDIR]TagCompanion.exe"
-                       WorkingDirectory="INSTALLDIR"/>
-             <RemoveFolder Id="RemoveApplicationProgramsFolder"
-                           On="uninstall"/>
-           </Component>
-         </DirectoryRef>
+          <DirectoryRef Id="ApplicationProgramsFolder">
+               <Component Id="TagCompanionStartMenu">
+                    <!-- RegistryValue needed because every Component must have a KeyPath.
+                    Because of ICE43, the Root must be HKCU. -->
+                    <RegistryValue Root="HKCU"
+                         Key="$(var.RegistryKeyPath)\Components"
+                         Name="TagCompanionStartMenuShortcuts"
+                         Type="integer"
+                         Value="1"
+                         KeyPath="yes"/>
+                    <Shortcut Id="TagCompanionShortcut"
+                         Name="Tag Companion"
+                         Target="[INSTALLDIR]TagCompanion.exe"
+                         WorkingDirectory="INSTALLDIR"/>
+                    <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall"/>
+               </Component>
+          </DirectoryRef>     
 
-          <UI>
-            <ui:WixUI Id="WixUI_InstallDir" />
-            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2" />
-            <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2" />
-          </UI>
+     <UI>
+          <ui:WixUI Id="WixUI_InstallDir" />
+          <Property Id="WixUI_Mode" Value="FeatureTree"/>
+          <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2" />
+          <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2" />
+     </UI>
      </Package>
 </Wix>
