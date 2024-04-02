@@ -3,6 +3,8 @@
     <MajorUpgrade DowngradeErrorMessage="Test" />
     <MediaTemplate EmbedCab="yes" />
 
+    <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
+
     <StandardDirectory Id="ProgramFiles64Folder">
       <Directory Id="APPLICATIONROOTDIRECTORY" Name="Tag Companion" />
     </StandardDirectory>
@@ -12,7 +14,7 @@
         <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />
         <Shortcut Name="Tag Companion" Directory="DesktopFolder" Advertise="yes" Icon="favicon.exe" />
             
-        <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder\\Musson Industrial" Advertise="yes" Icon="favicon.exe" />
+        <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" Advertise="yes" Icon="favicon.exe" />
       </Component>
     </DirectoryRef>
 
