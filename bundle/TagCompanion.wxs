@@ -51,6 +51,10 @@
           <StandardDirectory Id="ProgramFiles6432Folder">
              <Directory Id="INSTALLDIR" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
           </StandardDirectory>
+
+          <StandardDirectory Id="AppDataFolder">
+             <Directory Id="TagCompanionDataFolder" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
+          </StandardDirectory>
      
           <StandardDirectory Id="ProgramMenuFolder">
              <Directory Id="ApplicationProgramsFolder" Name="!(bind.Property.Manufacturer)" />
@@ -60,12 +64,6 @@
                <Component Id="TagCompanion.exe">
                     <File Id="TagCompanion.exe" Source="..\\TagCompanion.exe" KeyPath="yes" />
                </Component>
-               <Component Id="Settings">
-                    <File Id="settings.json" Source="..\\settings.json" KeyPath="yes" />
-               </Component>
-               <Component Id="Hotstrings">
-                    <File Id="hotstrings.json" Source="..\\hotstrings.json" KeyPath="yes" />
-               </Component>
                <Directory Id="ImagesFolder" Name="images">
                     <Component Id="ImageLogo">
                          <File Id="logo.png" KeyPath="yes" Source="..\\images\\logo.png"/>
@@ -74,6 +72,15 @@
                          <File Id="favicon.ico" KeyPath="yes" Source="..\\images\\favicon.ico"/>
                     </Component>
                </Directory>
+           </DirectoryRef>
+
+          <DirectoryRef Id="TagCompanionDataFolder">
+               <Component Id="Settings">
+                    <File Id="settings.json" Source="..\\settings.json" KeyPath="yes" />
+               </Component>
+               <Component Id="Hotstrings">
+                    <File Id="hotstrings.json" Source="..\\hotstrings.json" KeyPath="yes" />
+               </Component>
            </DirectoryRef>
      
           <DirectoryRef Id="ApplicationProgramsFolder">
