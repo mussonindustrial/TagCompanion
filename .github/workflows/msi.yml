@@ -35,7 +35,6 @@ jobs:
       - name: Install WiX
         run: |
           dotnet tool install --global wix --version 4.0.5
-          dotnet add package WixToolset.UI.wixext --version 4.0.5
         
       - name: Build WiX
         run: wix build .\Installer.wxs
