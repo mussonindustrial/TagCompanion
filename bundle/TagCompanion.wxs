@@ -84,7 +84,7 @@
                          Value="1"
                          KeyPath="yes"/>
                     <File Id="settings.json" Source="..\\settings.json" />
-                    <RemoveFile Id='RemoveSettings' On='uninstall' />
+                    <RemoveFile Id="RemoveSettings" Name="settings.json" On='uninstall' />
                </Component>
                <Component Id="Hotstrings" Guid="3f1f08a9-c6a5-45ca-8f15-0c734a2a5880">
                     <RegistryValue Root="HKCU"
@@ -94,7 +94,7 @@
                          Value="1"
                          KeyPath="yes"/>
                     <File Id="hotstrings.json" Source="..\\hotstrings.json" />
-                    <RemoveFile Id='RemoveHotstrings' On='uninstall' />
+                    <RemoveFile Id="RemoveHotstrings" Name="hotstrings.json" On='uninstall' />
                </Component>
            </DirectoryRef>
      
