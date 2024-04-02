@@ -1,0 +1,43 @@
+{
+  "product": "Tag Companion",
+  "company": "Musson Industrial",
+  "license": "LICENSE",
+  "upgrade-code": "",
+  "files": {
+    "guid": "438624a3-b201-4ab6-81b4-f40b5d4478ca",
+    "items": [
+      "bin/TagCompanion_x64.exe"
+    ]
+  },
+  "env": {
+    "guid": "438624a3-b201-4ab6-81b4-f40b5d4478ca",
+    "vars": [
+      {
+        "name": "PATH",
+        "value": "[INSTALLDIR]",
+        "permanent": "no",
+        "system": "no",
+        "action": "set",
+        "part": "last"
+      }
+    ]
+  },
+  "shortcuts": {
+    "guid": "438624a3-b201-4ab6-81b4-f40b5d4478ca",
+    "items": [
+      {
+        "name": "Tag Companion",
+        "description": "MSI pakage for your product",
+        "target": "[INSTALLDIR]\\TagCompanion_x64.exe",
+        "wdir": "INSTALLDIR",
+        "arguments": "",
+        "icon": "images\favicon.ico"
+      }
+    ]
+  },
+  "choco": {
+    "description": "generate MSI package for Your Product project",
+    "tags": "Tag Companion",
+    "license-url": "https://opensource.org/licenses/MIT"
+  }
+}
