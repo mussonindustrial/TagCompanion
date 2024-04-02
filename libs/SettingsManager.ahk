@@ -1,6 +1,8 @@
 #Include "..\include\LightJson.ahk"
 #Include "strings.ahk"
 
+FileInstall("\settings.json", "\settings.json")
+
 class SettingsManager {
 
 	static configPath := "settings.json"
