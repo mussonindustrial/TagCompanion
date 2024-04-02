@@ -11,14 +11,14 @@
       <Component Id="TagCompanion.exe" Guid="9fbfa205-5ee1-4e7c-8f21-a7f1058bcb42">
         <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />
         <Shortcut Name="Tag Companion" Directory="DesktopFolder" 
-          Advertise="yes" WorkingDirectory="INSTALLFOLDER" />
+          Advertise="yes" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
             
         <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" 
-          Advertise="yes" WorkingDirectory="INSTALLFOLDER" />
+          Advertise="yes" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
       </Component>
     </DirectoryRef>
 
-    <Feature Id="MainApplication" Title="Main Application" Level="1">
+    <Feature Id="TagCompanion" Title="Tag Companion" Level="1">
       <ComponentRef Id="TagCompanion.exe"/>
     </Feature>
   </Package>
