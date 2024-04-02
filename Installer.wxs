@@ -1,13 +1,12 @@
-<Wix 
-    xmlns="http://wixtoolset.org/schemas/v4/wxs"
-    xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-  <Package Name="Tag Companion" Manufacturer="Musson Industrial" Version="1.0.0.0" UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f">
-    <MajorUpgrade DowngradeErrorMessage="Test" />
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package  Name="Tag Companion" 
+            Manufacturer="Musson Industrial" 
+            Version="1.0.0.0" 
+            UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
+            InstallerVersion="200">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
-    <ui:WixUI
-      Id="WixUI_InstallDir"
-      InstallDirectory="INSTALLFOLDER"
-      />
 
     <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
 
@@ -31,8 +30,10 @@
 
     <Icon Id="favicon.exe" SourceFile="images\\favicon.ico" />
 
-    <Feature Id="TagCompanion" Title="Tag Companion" Level="1">
-      <ComponentRef Id="TagCompanion.exe"/>
+    <Feature Id="TagCompanion" Title="Tag Companion">
+      <ComponentGroupRef Id="TagCompanionInstall"/>
     </Feature>
+
+    <UIRef Id="WixUI_InstallDir" />
   </Package>
 </Wix>
