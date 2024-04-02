@@ -14,15 +14,23 @@
            UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
            InstallerVersion="200">
 
-        <SummaryInformation Description="Tag Companion" />
+          <SummaryInformation Description="Tag Companion" />
 
-         <Launch Condition="Installed OR (VersionNT &gt;= 603) OR (VersionNT &gt;= 602 AND MsiNTProductType &lt;&gt; 1)" Message="This application is only supported on Windows 8.1, Windows Server 2012 R2, or higher." />
-     
-         <Media Id="1" Cabinet="media1.cab" EmbedCab="yes"/>
-     
-         <MajorUpgrade AllowSameVersionUpgrades="yes"
+          <Launch Condition="Installed OR (VersionNT &gt;= 603) OR (VersionNT &gt;= 602 AND MsiNTProductType &lt;&gt; 1)" Message="This application is only supported on Windows 8.1, Windows Server 2012 R2, or higher." />
+          
+          <Media Id="1" Cabinet="media1.cab" EmbedCab="yes"/>
+
+          <MajorUpgrade AllowSameVersionUpgrades="yes"
                        DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
-     
+          <Upgrade Id="55ee4718-8961-4711-834a-9de7895416b2">
+               <UpgradeVersion Maximum="1.0.0"
+                           IncludeMaximum="no"
+                           Property="NODE_0X_DETECTED" />
+               <UpgradeVersion Minimum="1.0.0"
+                           IncludeMinimum="yes"
+                           Property="EARLY_IO_DETECTED" />
+          </Upgrade>
+               
           <Icon Id="favicon.exe" SourceFile="..\\images\\favicon.ico" />
           <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
           <Property Id="ApplicationFolderName" Value="Musson Industrial"/>
