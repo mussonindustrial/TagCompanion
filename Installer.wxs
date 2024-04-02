@@ -10,13 +10,13 @@
     <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
       <Component Id="TagCompanion.exe" Guid="9fbfa205-5ee1-4e7c-8f21-a7f1058bcb42">
         <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />
-        <Shortcut Name="Tag Companion" Directory="DesktopFolder" 
-          Advertise="yes" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Name="Tag Companion" Directory="DesktopFolder" Advertise="yes" Icon="favicon.exe" />
             
-        <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" 
-          Advertise="yes" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+        <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" Advertise="yes" Icon="favicon.exe" />
       </Component>
     </DirectoryRef>
+
+    <Icon Id="favicon.exe" SourceFile="images\favicon.icon" />
 
     <Feature Id="TagCompanion" Title="Tag Companion" Level="1">
       <ComponentRef Id="TagCompanion.exe"/>
