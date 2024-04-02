@@ -71,7 +71,7 @@
                          <File Id="logo.png" KeyPath="yes" Source="..\\images\\logo.png"/>
                     </Component>
                     <Component Id="ImageIcon">
-                         <File Id="favicon.icon" KeyPath="yes" Source="..\\images\\favicon.icon"/>
+                         <File Id="favicon.ico" KeyPath="yes" Source="..\\images\\favicon.ico"/>
                     </Component>
                </Directory>
            </DirectoryRef>
