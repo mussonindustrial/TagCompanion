@@ -5,7 +5,6 @@
      <?define ProductName = "Tag Companion" ?>
      <?define ProductDescription = "Faster and easier Studio5000 tag creation." ?>
      <?define ProductAuthor = "Musson Industrial" ?>
-     <?define ProductVersion = 1.0.0.2" ?>
 
      <?define RegistryKeyPath = "SOFTWARE\MussonIndustrial\TagCompanion" ?>
 
