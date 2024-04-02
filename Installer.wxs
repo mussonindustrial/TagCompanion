@@ -6,14 +6,16 @@
     <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
 
     <StandardDirectory Id="ProgramFiles64Folder">
-      <Directory Id="APPLICATIONROOTDIRECTORY" Name="Tag Companion" />
+      <Directory Id="INSTALLDIRECTORY" Name="Tag Companion" />
     </StandardDirectory>
+
+    <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Musson Industrial"/>
+    </Directory>
     
-    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+    <DirectoryRef Id="INSTALLDIRECTORY">
       <Component Id="TagCompanion.exe" Guid="9fbfa205-5ee1-4e7c-8f21-a7f1058bcb42">
-        <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />
-        <Shortcut Name="Tag Companion" Directory="DesktopFolder" Advertise="yes" Icon="favicon.exe" />
-            
+        <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />           
         <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" Advertise="yes" Icon="favicon.exe" />
       </Component>
     </DirectoryRef>
