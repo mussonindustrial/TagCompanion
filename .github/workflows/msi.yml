@@ -31,8 +31,14 @@ jobs:
           
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.3.1
-        
-      - run: msbuild -nologo -restore bundle\TagCompanion.wixproj -p:Configuration=Release -p:ProductVersion=${{ github.event.inputs.version }} -p:TAGCOMPANION_BUILD=${{ github.workspace }}\.build\release -p:OutputPath=${{ github.workspace }}\artifacts -p:RunWixToolsOutOfProc=true
+
+      - name: Perform msbuild
+        run: msbuild -nologo -restore bundle\TagCompanion.wixproj -p:Configuration=Release -p:ProductVersion=${{ github.event.inputs.version }} -p:TAGCOMPANION_BUILD=${{ github.workspace }}\.build\release -p:OutputPath=${{ github.workspace }}\artifacts -p:RunWixToolsOutOfProc=true
+
+      - name: Convert file name
+        run: |
+          $MSI_PATH = cygpath -m ${{ github.workspace }}\artifacts\TagCompanion.msi
+          Echo MSI_PATH=$MSI_PATH | Out-File -FilePath ${env:GITHUB_ENV} -Encoding utf8 -Append
         
       - name: Release
         uses: softprops/action-gh-release@v2
