@@ -2,6 +2,7 @@
 #Include "strings.ahk"
 
 if(!FileExist(SettingsManager.configPath)) {
+	DirCreate(A_AppData . "\Musson Industrial")
 	FileInstall("settings.json", SettingsManager.configPath)
 }
 

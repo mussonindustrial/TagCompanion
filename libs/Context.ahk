@@ -10,7 +10,7 @@ class TagCompanionContext {
         this.SettingsManager := SettingsManager(this)
         this.HotstringManager := HotstringManager(this)
 
-        this.SettingsManager.Load('settings.json')	
+        this.SettingsManager.Load(SettingsManager.configPath)	
 
         this.GuiMain := Gui()
         this.GuiMain.Title := "Tag Companion"
