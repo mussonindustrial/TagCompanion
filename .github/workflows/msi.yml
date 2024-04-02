@@ -37,6 +37,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: 'artifacts\TagCompanion.msi'
+          files: '\artifacts\TagCompanion.msi'
           tag_name: 'latest'
           make_latest: true
