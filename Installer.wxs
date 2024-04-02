@@ -1,8 +1,11 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package Name="Tag Companion" Manufacturer="Musson Industrial" Version="1.0.0.0" UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f">
-    <UIRef Id="WixUI_InstallDir" />
     <MajorUpgrade DowngradeErrorMessage="Test" />
     <MediaTemplate EmbedCab="yes" />
+    <ui:WixUI
+      Id="WixUI_InstallDir"
+      InstallDirectory="INSTALLFOLDER"
+      />
 
     <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
 
