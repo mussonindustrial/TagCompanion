@@ -76,10 +76,24 @@
 
           <DirectoryRef Id="TagCompanionDataFolder">
                <Component Id="Settings">
-                    <File Id="settings.json" Source="..\\settings.json" KeyPath="yes" />
+                    <RegistryValue Root="HKCU"
+                         Key="$(var.RegistryKeyPath)\Components"
+                         Name="SettingsJson"
+                         Type="integer"
+                         Value="1"
+                         KeyPath="yes"/>
+                    <File Id="settings.json" Source="..\\settings.json" />
+                    <RemoveFolder Id='TagCompanionDataFolder' On='uninstall' />
                </Component>
                <Component Id="Hotstrings">
-                    <File Id="hotstrings.json" Source="..\\hotstrings.json" KeyPath="yes" />
+                    <RegistryValue Root="HKCU"
+                         Key="$(var.RegistryKeyPath)\Components"
+                         Name="HostringsJson"
+                         Type="integer"
+                         Value="1"
+                         KeyPath="yes"/>
+                    <File Id="hotstrings.json" Source="..\\hotstrings.json" />
+                    <RemoveFolder Id='TagCompanionDataFolder' On='uninstall' />
                </Component>
            </DirectoryRef>
      
@@ -97,7 +111,7 @@
                          Name="Tag Companion"
                          Target="[INSTALLDIR]TagCompanion.exe"
                          WorkingDirectory="INSTALLDIR"/>
-                    <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall"/>
+                    <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
                </Component>
           </DirectoryRef>     
 
