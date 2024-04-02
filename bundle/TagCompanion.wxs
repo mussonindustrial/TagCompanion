@@ -43,9 +43,17 @@
           </StandardDirectory>
      
           <DirectoryRef Id="INSTALLDIR">
-               <Component Id="TagCompanionInstall">
-                    <File Id="TagCompanion.exe" Source="..\\TagCompanion.exe" KeyPath="yes" />   
-               </Component>
+               <ComponentGroup Id="TagCompanionInstall">
+                    <Component Id="TagCompanion.exe">
+                         <File Id="TagCompanion.exe" Source="..\\TagCompanion.exe" KeyPath="yes" />
+                    </Component>
+                    <Component Id="settings.json">
+                         <File Id="settings.json" Source="..\\settings.json" KeyPath="yes" />
+                    </Component>
+                    <Component Id="hotstrings.json">
+                         <File Id="hotstrings.json" Source="..\\hotstrings.json" KeyPath="yes" />
+                    </Component>
+               </ComponentGroup>
            </DirectoryRef>
      
          <DirectoryRef Id="ApplicationProgramsFolder">
