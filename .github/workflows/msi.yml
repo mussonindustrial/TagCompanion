@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build with AHK v2.0.12
         uses: nukdokplex/autohotkey-build@v0.1
@@ -38,13 +38,7 @@ jobs:
           exefile: 'TagCompanion_x64.exe'
           version: '${{ github.event.inputs.version }}'
 
-      - name: Upload MSI for Windows to release page
-        uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: '${{ github.event.inputs.release_name }}'
-          files: |
-           ".\TagCompanion\TagCompanion_x64.exe.msi"
-            
+          files: 'TagCompanion_x64.exe.msi'
