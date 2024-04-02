@@ -23,7 +23,7 @@
          <MajorUpgrade AllowSameVersionUpgrades="yes"
                        DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
      
-          <Icon Id="favicon.exe" SourceFile="images\\favicon.ico" />
+          <Icon Id="favicon.exe" SourceFile="..\\images\\favicon.ico" />
           <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
           <Property Id="ApplicationFolderName" Value="Musson Industrial"/>
           <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
