@@ -76,24 +76,10 @@
 
           <DirectoryRef Id="TagCompanionDataFolder">
                <Component Id="Settings" Guid="fbed7e12-ac5e-4f25-baef-cdb71d26defc">
-                    <RegistryValue Root="HKCU"
-                         Key="$(var.RegistryKeyPath)\Components"
-                         Name="SettingsJson"
-                         Type="integer"
-                         Value="1"
-                         KeyPath="yes"/>
                     <File Id="settings.json" Source="..\\settings.json" />
-                    <RemoveFile Id="RemoveSettings" Name="settings.json" On='uninstall' />
                </Component>
                <Component Id="Hotstrings" Guid="3f1f08a9-c6a5-45ca-8f15-0c734a2a5880">
-                    <RegistryValue Root="HKCU"
-                         Key="$(var.RegistryKeyPath)\Components"
-                         Name="HostringsJson"
-                         Type="integer"
-                         Value="1"
-                         KeyPath="yes"/>
                     <File Id="hotstrings.json" Source="..\\hotstrings.json" />
-                    <RemoveFile Id="RemoveHotstrings" Name="hotstrings.json" On='uninstall' />
                </Component>
            </DirectoryRef>
      
