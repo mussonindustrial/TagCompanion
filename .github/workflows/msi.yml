@@ -26,7 +26,7 @@ jobs:
           x86: true
           compression: upx
           in: ""
-          out: dist
+          out: application
           icon: /images/favicon.ico
           
       - name: Install go-msi
