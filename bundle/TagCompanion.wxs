@@ -35,8 +35,6 @@
           <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
           <Property Id="ApplicationFolderName" Value="Musson Industrial"/>
           <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
-          <Property Id="ALLUSERS" Secure="yes" Value="2"/>
-          <Property Id="MSIINSTALLPERUSER" Secure="yes" Value="1" />
      
           <Feature Id="TagCompanion" Title="Tag Companion" AllowAbsent="no">
                <ComponentRef Id="TagCompanion.exe"/>
