@@ -5,20 +5,17 @@
 
     <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
 
-    <StandardDirectory Id="ProgramFiles64Folder">
-      <Directory Id="INSTALLDIRECTORY" Name="Tag Companion" />
+    <StandardDirectory Id="ProgramFiles6432Folder">
+        <!-- Create a folder within the parent folder given the name -->
+        <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
     </StandardDirectory>
 
-    <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="Musson Industrial"/>
-    </Directory>
-    
-    <DirectoryRef Id="INSTALLDIRECTORY">
+    <ComponentGroup Id="TagCompanionInstall" Directory="INSTALLFOLDER">
       <Component Id="TagCompanion.exe" Guid="9fbfa205-5ee1-4e7c-8f21-a7f1058bcb42">
         <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />           
         <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" Advertise="yes" Icon="favicon.exe" />
       </Component>
-    </DirectoryRef>
+    </ComponentGroup>
 
     <Icon Id="favicon.exe" SourceFile="images\\favicon.ico" />
 
