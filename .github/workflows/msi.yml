@@ -30,23 +30,13 @@ jobs:
           icon: /images/favicon.ico
           
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v1.3.1
         
-      - name: Install WiX
-        run: |
-          dotnet tool install --global wix --version 4.0.5
+      - run: msbuild -nologo -restore bundle\TagCompanion.wixproj -p:Configuration=Release -p:ProductVersion=${{ github.event.inputs.version }} -p:TAGCOMPANION_BUILD=${{ github.workspace }}\.build\release -p:OutputPath=${{ github.workspace }}\artifacts -p:RunWixToolsOutOfProc=true
         
-      - name: Build WiX
-        run: wix build .\Installer.wxs
-
-      - name: Rename MSI
-        shell: pwsh
-        run: |
-          Rename-Item -Path "Installer.msi" -NewName "TagCompanion-${{ github.event.inputs.version }}.msi"
-
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: 'TagCompanion-${{ github.event.inputs.version }}.msi'
+          files: 'artifacts\TagCompanion.msi'
           tag_name: 'latest'
           make_latest: true
