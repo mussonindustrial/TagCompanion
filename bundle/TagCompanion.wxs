@@ -9,10 +9,11 @@
      <?define RegistryKeyPath = "SOFTWARE\MussonIndustrial\TagCompanion" ?>
 
      <Package Name="$(var.ProductName)"
-           Version="$(var.ProductVersion)"
-           Manufacturer="$(var.ProductAuthor)"
-           UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
-           InstallerVersion="200">
+          Version="$(var.ProductVersion)"
+          Manufacturer="$(var.ProductAuthor)"
+          UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
+          InstallerVersion="200"
+          InstallScope="perMachine">
 
           <SummaryInformation Description="Tag Companion" />
 
@@ -83,7 +84,7 @@
                          Value="1"
                          KeyPath="yes"/>
                     <File Id="settings.json" Source="..\\settings.json" />
-                    <RemoveFolder Id='TagCompanionDataFolder' On='uninstall' />
+                    <RemoveFile Id='RemoveSettings' On='uninstall' />
                </Component>
                <Component Id="Hotstrings" Guid="3f1f08a9-c6a5-45ca-8f15-0c734a2a5880">
                     <RegistryValue Root="HKCU"
@@ -93,6 +94,7 @@
                          Value="1"
                          KeyPath="yes"/>
                     <File Id="hotstrings.json" Source="..\\hotstrings.json" />
+                    <RemoveFile Id='RemoveHotstrings' On='uninstall' />
                </Component>
            </DirectoryRef>
      
