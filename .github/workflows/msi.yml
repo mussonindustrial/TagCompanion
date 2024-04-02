@@ -23,10 +23,10 @@ jobs:
         with:
           version: v2.0.12
           x64: true
-          x86: true
           compression: upx
           in: ""
           out: application
+          x64_suffix: ""
           icon: /images/favicon.ico
           
       - name: Install go-msi
@@ -35,12 +35,17 @@ jobs:
       - name: Build Windows Installer MSI from exe file
         uses: AliceOh/CreateWindowsInstaller@1.0.0
         with:
-          exefile: 'TagCompanion_x64.exe'
+          exefile: 'TagCompanion.exe'
           version: '${{ github.event.inputs.version }}'
+
+      - name: Rename MSI
+        shell: pwsh
+        run: |
+          rename "TagCompanion.exe.msi" "TagCompanion-${{ github.event.inputs.version }}.msi"
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: 'TagCompanion_x64.exe.msi'
+          files: 'TagCompanion-${{ github.event.inputs.version }}.msi'
           tag_name: 'latest'
           make_latest: true
