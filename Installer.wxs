@@ -10,10 +10,17 @@
         <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
     </StandardDirectory>
 
+    <StandardDirectory Id="ProgramMenuFolder">
+        <!-- Create a folder within the parent folder given the name -->
+        <Directory Id="STARTFOLDER" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
+    </StandardDirectory>
+
+
+
     <ComponentGroup Id="TagCompanionInstall" Directory="INSTALLFOLDER">
       <Component Id="TagCompanion.exe" Guid="9fbfa205-5ee1-4e7c-8f21-a7f1058bcb42">
         <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />           
-        <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" Advertise="yes" Icon="favicon.exe" />
+        <Shortcut Name="Tag Companion" Directory="STARTFOLDER" Advertise="yes" Icon="favicon.exe" />
       </Component>
     </ComponentGroup>
 
