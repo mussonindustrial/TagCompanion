@@ -1,0 +1,94 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+     <?define ProductName = "Tag Companion" ?>
+     <?define ProductDescription = "Faster and easier Studio5000 tag creation." ?>
+     <?define ProductAuthor = "Musson Industrial" ?>
+
+     <?define RegistryKeyPath = "SOFTWARE\MussonIndustrial\TagCompanion" ?>
+
+     <Package Name="$(var.ProductName)"
+           Version="$(var.ProductVersion)"
+           Manufacturer="$(var.ProductAuthor)"
+           UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f"
+           InstallerVersion="200">
+
+          <SummaryInformation Description="Tag Companion" />
+
+          <Launch Condition="Installed OR (VersionNT &gt;= 603) OR (VersionNT &gt;= 602 AND MsiNTProductType &lt;&gt; 1)" Message="This application is only supported on Windows 8.1, Windows Server 2012 R2, or higher." />
+          
+          <Media Id="1" Cabinet="media1.cab" EmbedCab="yes"/>
+
+          <MajorUpgrade AllowSameVersionUpgrades="yes"
+                       DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
+          <Upgrade Id="55ee4718-8961-4711-834a-9de7895416b2">
+               <UpgradeVersion Maximum="1.0.0"
+                           IncludeMaximum="no"
+                           Property="NODE_0X_DETECTED" />
+               <UpgradeVersion Minimum="1.0.0"
+                           IncludeMinimum="yes"
+                           Property="EARLY_IO_DETECTED" />
+          </Upgrade>
+               
+          <Icon Id="favicon.exe" SourceFile="..\\images\\favicon.ico" />
+          <Property Id="ARPPRODUCTICON" Value="favicon.exe" />
+          <Property Id="ApplicationFolderName" Value="Musson Industrial"/>
+          <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+     
+          <Feature Id="TagCompanion" Title="Tag Companion">
+               <ComponentRef Id="TagCompanion.exe"/>
+               <ComponentRef Id="settings.json"/>
+               <ComponentRef Id="hotstrings.json"/>
+          </Feature>
+          <Feature Id="Shortcuts" Title="Start Menu Shortcut">
+               <ComponentRef Id="TagCompanionStartMenu"/>
+          </Feature>
+     
+     
+          <StandardDirectory Id="ProgramFiles6432Folder">
+             <Directory Id="INSTALLDIR" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
+          </StandardDirectory>
+     
+          <StandardDirectory Id="ProgramMenuFolder">
+             <Directory Id="ApplicationProgramsFolder" Name="!(bind.Property.Manufacturer)" />
+          </StandardDirectory>
+     
+          <DirectoryRef Id="INSTALLDIR">
+               <Component Id="TagCompanion.exe">
+                    <File Id="TagCompanion.exe" Source="..\\TagCompanion.exe" KeyPath="yes" />
+               </Component>
+               <Component Id="settings.json">
+                    <File Id="settings.json" Source="..\\settings.json" KeyPath="yes" />
+               </Component>
+               <Component Id="hotstrings.json">
+                    <File Id="hotstrings.json" Source="..\\hotstrings.json" KeyPath="yes" />
+               </Component>
+           </DirectoryRef>
+     
+         <DirectoryRef Id="ApplicationProgramsFolder">
+           <Component Id="TagCompanionStartMenu">
+             <!-- RegistryValue needed because every Component must have a KeyPath.
+                  Because of ICE43, the Root must be HKCU. -->
+             <RegistryValue Root="HKCU"
+                            Key="$(var.RegistryKeyPath)\Components"
+                            Name="TagCompanionStartMenuShortcuts"
+                            Type="integer"
+                            Value="1"
+                            KeyPath="yes"/>
+             <Shortcut Id="TagCompanionShortcut"
+                       Name="Tag Companion"
+                       Target="[INSTALLDIR]TagCompanion.exe"
+                       WorkingDirectory="INSTALLDIR"/>
+             <RemoveFolder Id="RemoveApplicationProgramsFolder"
+                           On="uninstall"/>
+           </Component>
+         </DirectoryRef>
+
+          <UI>
+            <ui:WixUI Id="WixUI_InstallDir" />
+            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2" />
+            <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2" />
+          </UI>
+     </Package>
+</Wix>
