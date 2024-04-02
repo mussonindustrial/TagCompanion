@@ -1,7 +1,8 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package Name="Tag Companion" Manufacturer="Musson Industrial" Version="1.0.0.0" UpgradeCode="92352619-b2b1-4814-b6d0-67d99c06a05f">
     <MajorUpgrade DowngradeErrorMessage="Test" />
-    
+    <MediaTemplate EmbedCab="yes" />
+
     <StandardDirectory Id="ProgramFiles64Folder">
       <Directory Id="APPLICATIONROOTDIRECTORY" Name="Tag Companion" />
     </StandardDirectory>
