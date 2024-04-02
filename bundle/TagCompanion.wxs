@@ -38,8 +38,6 @@
      
           <Feature Id="TagCompanion" Title="Tag Companion" AllowAbsent="no">
                <ComponentRef Id="TagCompanion.exe"/>
-               <ComponentRef Id="Settings"/>
-               <ComponentRef Id="Hotstrings"/>
                <ComponentRef Id="ImageLogo"/>
                <ComponentRef Id="ImageIcon"/>
           </Feature>
@@ -47,13 +45,8 @@
                <ComponentRef Id="TagCompanionStartMenu"/>
           </Feature>
      
-     
           <StandardDirectory Id="ProgramFiles6432Folder">
              <Directory Id="INSTALLDIR" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
-          </StandardDirectory>
-
-          <StandardDirectory Id="CommonAppDataFolder">
-             <Directory Id="TagCompanionDataFolder" Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
           </StandardDirectory>
      
           <StandardDirectory Id="ProgramMenuFolder">
@@ -72,15 +65,6 @@
                          <File Id="favicon.ico" KeyPath="yes" Source="..\\images\\favicon.ico"/>
                     </Component>
                </Directory>
-           </DirectoryRef>
-
-          <DirectoryRef Id="TagCompanionDataFolder">
-               <Component Id="Settings" Guid="fbed7e12-ac5e-4f25-baef-cdb71d26defc">
-                    <File Id="settings.json" Source="..\\settings.json" />
-               </Component>
-               <Component Id="Hotstrings" Guid="3f1f08a9-c6a5-45ca-8f15-0c734a2a5880">
-                    <File Id="hotstrings.json" Source="..\\hotstrings.json" />
-               </Component>
            </DirectoryRef>
      
           <DirectoryRef Id="ApplicationProgramsFolder">
