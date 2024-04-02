@@ -33,7 +33,10 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
         
       - name: Install WiX
-        run: dotnet tool install --global wix
+        run: |
+          dotnet tool install --global wix --version 4.0.5
+          wix.exe extension add WixToolset.UI.wixext --global
+          wix.exe extension add WixToolset.Util.wixext --global
         
       - name: Build WiX
         run: wix build .\Installer.wxs
