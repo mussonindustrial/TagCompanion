@@ -29,7 +29,8 @@
           <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
      
           <Feature Id="TagCompanion" Title="Tag Companion">
-               <ComponentRef Id="TagCompanion.exe"/>
+               <ComponentRef Id="TagCompanionInstall"/>
+               <ComponentRef Id="TagCompanionStartMenu"/>
           </Feature>
      
      
@@ -42,7 +43,7 @@
           </StandardDirectory>
      
           <DirectoryRef Id="INSTALLDIR">
-               <Component Id="TagCompanion.exe">
+               <Component Id="TagCompanionInstall">
                     <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />   
                </Component>
            </DirectoryRef>
