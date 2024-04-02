@@ -3,7 +3,7 @@
 
 class SettingsManager {
 
-	static configPath := "settings.json"
+	static configPath := A_AppData . "\settings.json"
 
 	settings := {
 		hotstrings: {
