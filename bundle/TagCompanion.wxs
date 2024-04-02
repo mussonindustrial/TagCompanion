@@ -93,7 +93,6 @@
                          Value="1"
                          KeyPath="yes"/>
                     <File Id="hotstrings.json" Source="..\\hotstrings.json" />
-                    <RemoveFolder Id='TagCompanionDataFolder' On='uninstall' />
                </Component>
            </DirectoryRef>
      
