@@ -1,7 +1,11 @@
 #Include "..\include\LightJson.ahk"
 #Include "strings.ahk"
 
-FileInstall("settings.json", SettingsManager.configPath)
+if(!FileExist(SettingsManager.configPath)) {
+	FileInstall("settings.json", SettingsManager.configPath)
+}
+
+
 
 class SettingsManager {
 
