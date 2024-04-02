@@ -5,7 +5,7 @@ FileInstall("settings.json", SettingsManager.configPath)
 
 class SettingsManager {
 
-	static configPath := A_AppData . "\settings.json"
+	static configPath := A_AppData . "\Musson Industrial\settings.json"
 
 	settings := {
 		hotstrings: {
