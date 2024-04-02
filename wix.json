@@ -6,7 +6,7 @@
   "files": {
     "guid": "8e817a2d-341f-4260-89ad-eeb676d08b9d",
     "items": [
-      "bin/TagCompanion_x64.exe"
+      "bin/TagCompanion.exe"
     ]
   },
   "env": {
@@ -28,16 +28,16 @@
       {
         "name": "Tag Companion",
         "description": "MSI pakage for your product",
-        "target": "[INSTALLDIR]\\TagCompanion_x64.exe",
+        "target": "[INSTALLDIR]\\TagCompanion.exe",
         "wdir": "INSTALLDIR",
         "arguments": "",
-        "icon": ""
+        "icon": "/images/favicon.ico"
       }
     ]
   },
   "choco": {
     "description": "generate MSI package for Your Product project",
     "tags": "Tag Companion",
-    "license-url": "https://opensource.org/licenses/MIT"
+    "license-url": "https://opensource.org/license/gpl-3-0"
   }
 }
