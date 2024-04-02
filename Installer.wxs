@@ -20,7 +20,6 @@
     <ComponentGroup Id="TagCompanionInstall" Directory="INSTALLFOLDER">
       <Component Id="TagCompanion.exe" Guid="9fbfa205-5ee1-4e7c-8f21-a7f1058bcb42">
         <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />           
-        <Shortcut Name="Tag Companion" Directory="STARTFOLDER" Advertise="yes" Icon="favicon.exe" />
       </Component>
     </ComponentGroup>
 
