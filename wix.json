@@ -4,13 +4,13 @@
   "license": "LICENSE",
   "upgrade-code": "",
   "files": {
-    "guid": "438624a3-b201-4ab6-81b4-f40b5d4478ca",
+    "guid": "8e817a2d-341f-4260-89ad-eeb676d08b9d",
     "items": [
       "bin/TagCompanion_x64.exe"
     ]
   },
   "env": {
-    "guid": "438624a3-b201-4ab6-81b4-f40b5d4478ca",
+    "guid": "f18d4134-90a5-4a8b-8265-d1448a852ead",
     "vars": [
       {
         "name": "PATH",
@@ -23,7 +23,7 @@
     ]
   },
   "shortcuts": {
-    "guid": "438624a3-b201-4ab6-81b4-f40b5d4478ca",
+    "guid": "a12f0799-a27b-42e8-81f4-7799f7a5c9b2",
     "items": [
       {
         "name": "Tag Companion",
