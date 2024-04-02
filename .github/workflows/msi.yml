@@ -41,7 +41,7 @@ jobs:
       - name: Rename MSI
         shell: pwsh
         run: |
-          rename "TagCompanion.exe.msi" "TagCompanion-${{ github.event.inputs.version }}.msi"
+          Rename-Item -Path "TagCompanion.exe.msi" --NewName "TagCompanion-${{ github.event.inputs.version }}.msi"
 
       - name: Release
         uses: softprops/action-gh-release@v2
