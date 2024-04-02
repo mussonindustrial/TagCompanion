@@ -12,11 +12,11 @@
         <File Id="TagCompanion.exe" Source="TagCompanion.exe" KeyPath="yes" />
         <Shortcut Name="Tag Companion" Directory="DesktopFolder" Advertise="yes" Icon="favicon.exe" />
             
-        <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder" Advertise="yes" Icon="favicon.exe" />
+        <Shortcut Name="Tag Companion" Directory="ProgramMenuFolder\\Musson Industrial" Advertise="yes" Icon="favicon.exe" />
       </Component>
     </DirectoryRef>
 
-    <Icon Id="favicon.exe" SourceFile="images\favicon.ico" />
+    <Icon Id="favicon.exe" SourceFile="images\\favicon.ico" />
 
     <Feature Id="TagCompanion" Title="Tag Companion" Level="1">
       <ComponentRef Id="TagCompanion.exe"/>
