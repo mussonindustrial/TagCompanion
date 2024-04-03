@@ -46,6 +46,7 @@ Output: 1=Operator Command to Start
 #### More Macro Variables 
 You can use as many variables as you want in your macros.
 The following example demonstrates a macro for quick bit indexing of a DINT array:
+
 [![Example 3](docs/hotstring_example3.png)](docs/hotstring_example3.png)
 
 In the above example, typing `..4.10{Space}` will cause `[4].10` to be inserted instead.
