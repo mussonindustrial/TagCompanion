@@ -34,7 +34,7 @@ class TagCompanionContext {
         this.GuiAbout.Button.Close.H := 50
         this.GuiAbout.Button.Close.X := -30 - this.GuiAbout.Button.Close.W
         this.GuiAbout.Button.Close.Y := 12
-        this.GuiAbout.Text.Name := this.GuiAbout.Add("Text",,"Tag Companion 0.1.0 (x64)")
+        this.GuiAbout.Text.Name := this.GuiAbout.Add("Text",,"Tag Companion ${{VERSION}} (x64)")
         license := "
         (
         Copyright (C) 2024 Musson Industrial

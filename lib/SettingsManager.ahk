@@ -1,16 +1,9 @@
 #Include "..\include\LightJson.ahk"
-#Include "strings.ahk"
-
-if(!FileExist(SettingsManager.configPath)) {
-	DirCreate(A_AppData . "\Musson Industrial")
-	FileInstall("settings.json", SettingsManager.configPath)
-}
-
-
+#Include "Strings.ahk"
 
 class SettingsManager {
 
-	static configPath := A_AppData . "\Musson Industrial\settings.json"
+	static configPath := A_AppData . "\Musson Industrial\Tag Companion\settings.json"
 
 	settings := {
 		hotstrings: {
@@ -30,6 +23,13 @@ class SettingsManager {
 
 	__New(context) {
 		this.context := context
+		if(!FileExist(SettingsManager.configPath)) {
+			DirCreate(A_AppData . "\Musson Industrial\Tag Companion")
+			FileInstall("settings.json", SettingsManager.configPath)
+
+			this.settings.hotstrings.filePath := A_AppData . "\Musson Industrial\Tag Companion\hotstrings.json"
+			this.Autosave()
+		}
 	}
 
 	/**
@@ -58,6 +58,7 @@ class SettingsManager {
 			return
 		}
 		this.settings := savedObj
+		this.Autosave()
 	}
 
 	/**

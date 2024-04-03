@@ -1,6 +1,6 @@
-#Include libs\csv.ahk
-#Include libs\Studio5000.ahk
-#include libs\UIA.ahk
+#Include lib\CSV.ahk
+#Include lib\Studio5000.ahk
+#include lib\UIA.ahk
 
 #SingleInstance Force
 

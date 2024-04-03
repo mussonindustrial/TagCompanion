@@ -4,8 +4,8 @@
 
 #Include "include\GuiReSizer.ahk"
 #Include "include\LightJson.ahk"
-#Include "libs\Context.ahk"
-#Include "libs\clipboard.ahk"
+#Include "lib\Context.ahk"
+#Include "lib\clipboard.ahk"
 
 guiCommon := {
 	margin: 8

@@ -2,7 +2,7 @@
 #Include "..\include\RegExHotstring.ahk"
 #Include "..\include\LightJson.ahk"
 
-#Include "strings.ahk"
+#Include "Strings.ahk"
 
 class HotstringManager {
 
@@ -139,7 +139,7 @@ class HotstringManager {
 			saveObj := LightJson.Parse(json)
 		}
 		catch {
-			MsgBox("Error parsing hotstring file.", "Error", 5)
+			; MsgBox("Error parsing hotstring file.", "Error", 5)
 			this.SaveAs()
 			return
 		}
@@ -187,6 +187,10 @@ class HotstringManager {
 			return
 		}
 		this.Save(filePath)
+	}
+
+	Autosave() {
+		this.Save(this.context.SettingsManager.settings['hotstrings']['filePath'])
 	}
 
 	/**

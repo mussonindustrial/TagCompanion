@@ -1,10 +1,12 @@
+#Requires AutoHotkey v2.0
+
 class MenuManager {
     __New(context) {
         this.context := context
         
         this.FileMenu := Menu()
         this.FileMenu.Add("&Open Hotstrings...`tCtrl+O", (*) => context.HotstringManager.ShowFileLoad())
-        this.FileMenu.Add("&Save Hotstrings`tCtrl+S", (*) => context.HotstringManager.Save(context.SettingsManager.settings['hotstrings']['filePath']))
+        this.FileMenu.Add("&Save Hotstrings`tCtrl+S", (*) => context.HotstringManager.Autosave())
         this.FileMenu.Add("Save Hotstrings As...", (*) => context.HotstringManager.SaveAs())
         this.FileMenu.Add()
         this.FileMenu.Add("Load Settings...", (*) => context.SettingsManager.PromptLoad())
