@@ -1,62 +1,18 @@
 #Include "..\include\GuiReSizer.ahk"
-#Include "..\include\RegExHotstring.ahk"
 #Include "..\include\LightJson.ahk"
 
 #Include "Strings.ahk"
+#Include "NamedValues.ahk"
+#Include "RegExHotstringHook.ahk"
 
 class HotstringManager {
 
-	hotstrings := Map()
-	hotstrings.Default := Map()
-	hotstrings.Default.key := ""
-	hotstrings.Default.replacement := ""
-	hotstrings.Default.options := ""
-
-	static OptionFlags := { NoEndChar: "*", TriggerInside: "?", NoAutoBack: "B0", OmitEndChar: "O", TextRaw: "T" }
-
-	/**
-	 * Get the hotstring for a given key.
-	 * @param {String} Key 
-	 * @return {Hotstring} hotstring object
-	 */
-	Get(Key) {
-		hs := this.hotstrings[Key]
-		return {
-			key: hs.Get("key"),
-			replacement: hs.Get("replacement"),
-			options: hs.Get("options")
-		}
-	}
-
-	/**
-	 * Add a new Hotstring.
-	 * @param {String} Key hotstring match key
-	 * @param {String} Replacement match result
-	 * @param {String} Options 
-	 * @param {Boolean} RemoveDuplicates if true, remove any existing hotstring with an identical key
-	 */
-	Add(Key, Replacement, Options, RemoveDuplicates := true) {
-		; remove any list View duplicate
-		if removeDuplicates {
-			Loop this.ListView.GetCount()
-				If (this.ListView.GetText(A_Index) = options and this.ListView.GetText(A_Index, 2) = key)
-					this.ListView.Delete(A_Index)
-		}
-
-		; create Hotstring
-		hs := Map()
-		hs['key'] := key
-		hs['replacement'] := replacement
-		hs['options'] := options
-		this.Hotstrings[key] := hs
-
-		RegExHotstring(StringTemplateToRegex(key), replacement, options, true)
-		this.ListView.Add(, options, key, StringEscapeCC(replacement))
-
-	}
+	static OptionFlags := { NoEndChar: "*", TriggerInside: "?", NoAutoBack: "B0", OmitEndChar: "O", NoBufferReset: "R0" }
 
 	__New(context) {
 		this.context := context
+		this.hook := NewRegExHotstringHook(context)
+
 		this.guiEdit := Gui(, "Add Hotstring"), this.guiEdit.Opt("+AlwaysOnTop +Resize +MinSize550x300")
 		this.guiEdit.OnEvent("Size", GuiReSizer)
 		this.guiEdit.OnEvent("Escape", (*) => this.guiEdit.Hide)
@@ -91,7 +47,7 @@ class HotstringManager {
 		this.guiEdit.Checkbox.TriggerInside := this.guiEdit.Add("Checkbox", , "Trigger inside another word (?)")
 		this.guiEdit.Checkbox.NoAutoBack := this.guiEdit.Add("Checkbox", , "No automatic backspacing (B0)")
 		this.guiEdit.Checkbox.OmitEndChar := this.guiEdit.Add("Checkbox", , "Omit ending character (O)")
-		this.guiEdit.Checkbox.TextRaw := this.guiEdit.Add("Checkbox", , "Send text raw (T)")
+		this.guiEdit.Checkbox.NoBufferReset := this.guiEdit.Add("Checkbox", , "Don't reset input buffer (R0)")
 		For flag, value in HotstringManager.OptionFlags.OwnProps()	; Position Checkboxes
 		{
 			this.guiEdit.Checkbox.%flag%.X := -220 + (3*guiCommon.margin)
@@ -108,14 +64,41 @@ class HotstringManager {
 		this.guiEdit.Button.Cancel.Y := 24 + (2*guiCommon.margin) + 3
 		this.guiEdit.Button.Cancel.W := -guiCommon.margin
 		;}
-
     }
 
 	InitializeListView(guiObj) {
-		this.ListView := guiObj.Add("ListView", "+LV0x4000", ["O", "Hotstring", "Replacement"])
+		this.ListView := guiObj.Add("ListView", "+LV0x4000", ["Options", "Hotstring", "Replacement"])
 		this.ListView.OnEvent("DoubleClick", (*) => this.OpenEditor())
 		this.ListView.OnEvent("ContextMenu", (GuiCtrlObj, Item, IsRightClick, X, Y) => this.OpenContext(Item))
 		return this.ListView
+	}
+
+	/**
+	 * Get the hotstring for a given key.
+	 * @param {String} Key 
+	 * @return {Hotstring} hotstring object
+	 */
+	 Get(Key) {
+		return this.hook.Get(Key)
+	}
+
+	/**
+	 * Add a new Hotstring.
+	 * @param {String} Key hotstring match key
+	 * @param {String} Replacement match result
+	 * @param {String} Options 
+	 * @param {Boolean} RemoveDuplicates if true, remove any existing hotstring with an identical key
+	 */
+	 Add(Key, Replacement, Options, RemoveDuplicates := true) {
+		; remove any list View duplicate
+		if removeDuplicates {
+			Loop this.ListView.GetCount()
+				If (this.ListView.GetText(A_Index) = options and this.ListView.GetText(A_Index, 2) = key)
+					this.ListView.Delete(A_Index)
+		}
+		this.hook.Add(key, StringTemplateToRegex(key), replacement, options, true)
+		this.ListView.Add(, options, key, StringEscapeCC(replacement))
+
 	}
 
 	/**
@@ -139,17 +122,18 @@ class HotstringManager {
 			saveObj := LightJson.Parse(json)
 		}
 		catch {
-			; MsgBox("Error parsing hotstring file.", "Error", 5)
 			this.SaveAs()
 			return
 		}
 
 		hs := saveObj['hotstrings']
 		for value in hs {
-			key := value.Get("key", "")
-			replacement := value.Get("replacement", "")
-			options := value.Get("options", "")
-			this.Add(key, replacement, options)
+			try {
+				key := value.Get("key", "")
+				replacement := value.Get("replacement", "")
+				options := value.Get("options", "")
+				this.Add(key, replacement, options)
+			}
 		}
 		this.ListView.ModifyCol(2, "Sort")
 		this.ListView.ModifyCol
@@ -163,18 +147,18 @@ class HotstringManager {
 	 */
 	Save(FileName) {
 		try FileMove(FileName, FileName ".bak", true)
-		FileAppend(this.Serialize(this.hotstrings), FileName)
+		FileAppend(this.Serialize(this.hook.hotstrings), FileName)
 		try FileDelete(FileName ".bak")
 	}
 
 	Serialize(hotstrings) {
-		values := []
-		for key, value in hotstrings {
-			values.Push(value)
+		hs := []
+		for k, v in hotstrings {
+			hs.Push(v.ToObject())
 		}
 
 		return LightJson.Stringify({
-			hotstrings: values
+			hotstrings: hs
 		}, "`t")
 	}
 
@@ -261,12 +245,29 @@ class HotstringManager {
 	}
 
 	OpenContext(row := 0) {
-		item := this.GetRow(row)
+		try {
+			item := this.GetRow(row)
+		} catch {
+			item := ""
+		}
+
 		contextMenu := Menu()
+		contextMenu.Add("&Edit`tCtrl+E", (*) => this.OpenEditor(row))
 		contextMenu.Add("&Copy`tCtrl+C", (*) => this.CopyToClipboard(item))
 		contextMenu.Add("&Duplicate`tCtrl+D", (*) => this.Duplicate(item))
 		contextMenu.Add()
+		contextMenu.Add("New...", (*) => this.OpenNewEditor())
+		contextMenu.Add()
 		contextMenu.Add("Delete", (*) => this.Delete(item.row))
+
+
+		if (!item) {
+			contextMenu.Disable("&Edit`tCtrl+E")
+			contextMenu.Disable("&Copy`tCtrl+C")
+			contextMenu.Disable("&Duplicate`tCtrl+D")
+			contextMenu.Disable("Delete")
+		}
+
 		contextMenu.Show()
 	}
 
@@ -276,7 +277,6 @@ class HotstringManager {
 	 */
 	CopyToClipboard(item) {
 		A_Clipboard := this.Serialize([item.hs])
-		; A_Clipboard := LightJson.Stringify({ %item.key%: item.hs }, '`t') 
 	}
 
 	/**
@@ -295,7 +295,7 @@ class HotstringManager {
 	 * Delete a hotstring at a row.
 	 * @param {Integer} row if no is specified, the current selected row will be used.
 	 */
-	Delete(row := 0) {
+	Delete(row := 0, confirm := true) {
 		if (!row) {
 			item := this.GetSelected()
 		} else  {
@@ -306,36 +306,17 @@ class HotstringManager {
 			return
 		}
 
-		If MsgBox("Are you sure you want to delete:`n`nHotstring: " item.key "`nReplacement: " item.hs.replacement, "Confirm Hotstring Deletion", 4 + 32 + 256 + 4096) = "Yes"
-			{
-				this.ListView.Delete(item.row)
-				this.Hotstrings.Delete(item.key)
-				RegExHotstring(item.key, item.hs.replacement, item.hs.options, false)
-			}
+		if (confirm) {
+			doDelete := MsgBox("Are you sure you want to delete:`n`nHotstring: " item.key "`nReplacement: " item.hs.replacement, "Confirm Hotstring Deletion", 4 + 32 + 256 + 4096) = "Yes"
+		} else {
+			doDelete := true
+		}
+
+		if doDelete {
+			this.ListView.Delete(item.row)
+			this.hook.Delete(item.key)
+		}
 	
-	}
-
-	/**
-	 * Delete the selected hotstring.
-	 */
-	DeleteSelected() {
-		row := this.ListView.GetNext()
-		if row = 0
-		{
-			MsgBox("No hotstring selected.", "Tag Companion")
-			Return
-		}
-
-		key := this.ListView.GetText(row, 2)
-		hs := this.Get(key)
-		if hs {
-			If MsgBox("Are you sure you want to delete:`n`nHotstring: " key "`nReplacement: " hs.replacement, "Confirm Hotstring Deletion", 4 + 32 + 256 + 4096) = "Yes"
-				{
-					this.ListView.Delete(row)
-					this.Hotstrings.Delete(key)
-					RegExHotstring(key, hs.replacement, hs.options, false)
-				}
-		}
 	}
 
 	HotstringAddEvent() {
@@ -346,14 +327,7 @@ class HotstringManager {
 				Options .= Flag
 		If this.guiEdit.Title ~= "Edit"
 		{
-			; when editing - delete current Hotstring to recreate
-			selected := this.GetSelected()
-			this.ListView.Delete(selected.row)
-			this.Hotstrings.Delete(selected.key)
-			RegExHotstring(StringTemplateToRegex(selected.key), selected.hs.replacement, selected.hs.options, false)
-			Hotstring(":BCO0R0*0:" selected.key, selected.hs.replacement, false)	; Disable Exsisting Options Variants (C)
-			Hotstring(":BC1O0R0*0:" selected.key, selected.hs.replacement, false)	; Disable Exsisting Options Variants (C1)
-			Hotstring(":BC0O0R0*0:" selected.key, selected.hs.replacement, false)	; Disable Exsisting Options Variants (C0)
+			this.Delete(,false)
 		}
 
 		this.Add(this.guiEdit.Edit.Hotstring.Value, this.guiEdit.Edit.Replace.Value, options)

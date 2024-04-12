@@ -62,7 +62,7 @@ StringTemplateToRegex(StringTemplate) {
         token := result[2]
 
         out .= SubStr(StringTemplate, searchPos, foundPos-searchPos) "\E"
-        out .= "(?<" token ">.*?)" "\Q"
+        out .= "(?<" token ">.+?)" "\Q"
         
         searchPos := foundPos + StrLen(group)
     }

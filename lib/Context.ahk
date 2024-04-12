@@ -7,10 +7,14 @@
 
 class TagCompanionContext {
     __New() {
+        this.Version := "${{VERSION}}"
         this.SettingsManager := SettingsManager(this)
         this.HotstringManager := HotstringManager(this)
 
         this.SettingsManager.Load(SettingsManager.configPath)	
+
+        this.GlobalValues := NamedValues()
+        this.InitializeGlobals()
 
         this.GuiMain := Gui()
         this.GuiMain.Title := "Tag Companion"
@@ -34,7 +38,7 @@ class TagCompanionContext {
         this.GuiAbout.Button.Close.H := 50
         this.GuiAbout.Button.Close.X := -30 - this.GuiAbout.Button.Close.W
         this.GuiAbout.Button.Close.Y := 12
-        this.GuiAbout.Text.Name := this.GuiAbout.Add("Text",,"Tag Companion ${{VERSION}} (x64)")
+        this.GuiAbout.Text.Name := this.GuiAbout.Add("Text",,"Tag Companion " this.Version "(x64)")
         license := "
         (
         Copyright (C) 2024 Musson Industrial
@@ -46,6 +50,12 @@ class TagCompanionContext {
         You should have received a copy of the GNU General Public License along with this program; if not, see <a href="http://www.gnu.org/licenses/gpl-3.0">here</a>.
         )"
         this.GuiAbout.Text.License := this.GuiAbout.Add("Link","w400",license)
+    }
+
+    InitializeGlobals() {
+        this.GlobalValues := NamedValues()
+        this.GlobalValues.Set("date", (*) => FormatTime(, "yyyyMMdd")) 
+		this.GlobalValues.Set("myName", "Ben") 
     }
 
     OpenAbout() {
