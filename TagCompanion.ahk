@@ -45,7 +45,7 @@ context.GuiMain.Button.HotstringDelete.H := 24
 context.GuiMain.Button.HotstringDelete.W := 60
 context.GuiMain.Button.HotstringDelete.X := -80
 context.GuiMain.Button.HotstringDelete.Y := - (2*guiCommon.margin) - context.GuiMain.Button.HotstringDelete.H
-context.GuiMain.Button.HotstringDelete.OnEvent("Click", (*) => context.HotstringManager.DeleteSelected())
+context.GuiMain.Button.HotstringDelete.OnEvent("Click", (*) => context.HotstringManager.Delete())
 
 context.GuiMain.Button.HotstringAdd := context.GuiMain.Add("Button",, "Add")
 context.GuiMain.Button.HotstringAdd.H := 24
@@ -58,8 +58,6 @@ context.GuiMain.Button.HotstringAdd.OnEvent("Click", (*) => context.HotstringMan
  * Load Hotstrings (Once GUI is Ready)
  */
 context.HotstringManager.Load(context.SettingsManager.settings['hotstrings']['filePath'])
-RegExHotstring("\Q#now\E", (*) => Send(FormatTime(, "yyyy/MM/dd h:mm tt")), "*O")
-RegExHotstring("\Q#date\E", (*) => Send(FormatTime(, "yyyy MMdd")), "*")
 
 
 /**
