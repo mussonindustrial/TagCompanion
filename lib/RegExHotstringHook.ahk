@@ -153,7 +153,6 @@ class RegExHotstringHook extends InputHook {
 		this.Stop()
 		this.Start()
 		this.inputBuffer := ""
-		ToolTip("{CLEARED}")
 	}
 
 	OnKeyDown := this.KeyDown
@@ -175,12 +174,10 @@ class RegExHotstringHook extends InputHook {
 				; clear input when press non-text key
 				this.ClearInput()	
 		}
-		ToolTip(this.inputBuffer)
 	}
 
 	OnChar := this.char
 	char(c) {
-		ToolTip(this.inputBuffer)
 		switch c {
 			case " ":
 				this.match(this.OnKeyHotstrings, , 0, c)
@@ -192,7 +189,6 @@ class RegExHotstringHook extends InputHook {
 		loop parse c {
 			this.match(this.OnCharHotstrings, , 1, c)
 		}
-		ToolTip(this.inputBuffer)
 	}
 
 	SendEventInteruptable(text) {
