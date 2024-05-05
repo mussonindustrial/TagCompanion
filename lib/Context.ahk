@@ -7,7 +7,7 @@
 
 class TagCompanionContext {
     __New() {
-        this.Version := "${{VERSION}}"
+        this.Version := "${VERSION}"
         this.SettingsManager := SettingsManager(this)
         this.HotstringManager := HotstringManager(this)
 
