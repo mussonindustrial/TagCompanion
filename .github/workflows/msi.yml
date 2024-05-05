@@ -18,6 +18,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Insert version number
+        uses: richardrigutins/replace-in-files@v2
+        with:
+          files: '**/*.ahk'
+          search-text: '${{VERSION}}'
+          replacement-text: '${{ github.event.inputs.version }}'
+          encoding: 'utf8'
+
       - name: Build with AHK v2.0.12
         uses: nukdokplex/autohotkey-build@v0.1
         with:
