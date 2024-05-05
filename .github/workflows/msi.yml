@@ -22,7 +22,7 @@ jobs:
         uses: richardrigutins/replace-in-files@v2
         with:
           files: '**/*.ahk'
-          search-text: '${{VERSION}}'
+          search-text: '${VERSION}'
           replacement-text: '${{ github.event.inputs.version }}'
           encoding: 'utf8'
 
