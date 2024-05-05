@@ -8,7 +8,7 @@ class SettingsManager {
 	settings := {
 		hotstrings: {
 			enabled: true,
-			filePath: "hotstrings.json"
+			filePath: A_AppData . "\Musson Industrial\Tag Companion\hotstrings.json"
 		},
 		increment: {
 			mode: "first",
@@ -25,9 +25,7 @@ class SettingsManager {
 		this.context := context
 		if(!FileExist(SettingsManager.configPath)) {
 			DirCreate(A_AppData . "\Musson Industrial\Tag Companion")
-			FileInstall("settings.json", SettingsManager.configPath)
-
-			this.settings.hotstrings.filePath := A_AppData . "\Musson Industrial\Tag Companion\hotstrings.json"
+			FileAppend(this.Serialize(this.settings), SettingsManager.configPath)
 			this.Autosave()
 		}
 	}
@@ -36,7 +34,7 @@ class SettingsManager {
 	 * Prompt the user to open and load a Tag Companion settings file.
 	 */
 	PromptLoad() {
-		filePath := FileSelect("1", SettingsManager.configPath, "Open Tag Companion Settings", "Tag Companion Settings (*.json;)")
+		filePath := FileSelect("1", SettingsManager.configPath, "Open Tag Companion Settings", "Tag Companion Settings (*.json)")
 		if(filePath = "") {
 			return
 		}
@@ -83,7 +81,7 @@ class SettingsManager {
 	 * Prompt the user to save configured settings to a new file.
 	 */
 	SaveAs() {
-		filePath := FileSelect("S8", SettingsManager.configPath, "Save Tag Companion Settings", "Tag Companion Settings (*.json;)")
+		filePath := FileSelect("S8", SettingsManager.configPath, "Save Tag Companion Settings", "Tag Companion Settings (*.json)")
 		if(filePath = "") {
 			return
 		}
