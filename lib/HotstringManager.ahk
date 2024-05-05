@@ -105,7 +105,7 @@ class HotstringManager {
 	 * Prompt the user to open and load a Hotstring Config file.
 	 */
 	ShowFileLoad() {
-		filePath := FileSelect("1", "", "Open Hotstring Config", "Hotstring Config (*.json;)")
+		filePath := FileSelect("1", "", "Open Hotstring Config", "Hotstring Config (*.json)")
 		if(filePath = "") {
 			return
 		}
@@ -166,11 +166,13 @@ class HotstringManager {
 	 * Prompt the user to save configured hotstrings to a new file.
 	 */
 	SaveAs() {
-		filePath := FileSelect("S8", "hotstrings.json", "Save Hotstring Config", "Hotstring Config (*.json;)")
+		filePath := FileSelect("S8", this.context.SettingsManager.settings['hotstrings']['filePath'], "Save Hotstring Config", "Hotstring Config (*.json)")
 		if(filePath = "") {
 			return
 		}
 		this.Save(filePath)
+		this.context.SettingsManager.settings['hotstrings']['filePath'] := filePath
+		this.context.SettingsManager.Autosave()
 	}
 
 	Autosave() {
