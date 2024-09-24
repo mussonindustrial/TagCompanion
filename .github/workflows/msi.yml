@@ -30,7 +30,7 @@ jobs:
           x64: true
           compression: upx
           in: ""
-          out: ""
+          out: "build"
           x64_suffix: ""
           icon: images\favicon.ico
           
