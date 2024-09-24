@@ -4,7 +4,7 @@
 
 #Include "include\GuiReSizer.ahk"
 #Include "include\LightJson.ahk"
-#Include "lib\Context.ahk"
+#Include "lib\AppContext.ahk"
 #Include "lib\clipboard.ahk"
 
 guiCommon := {
@@ -22,7 +22,7 @@ TrayTip("(Win + H) to Open...", "Tag Companion Started")
 /**
  * Initialize Application Context
  */
-context := TagCompanionContext()
+context := AppContext()
 
 /**
  * Main GUI

@@ -5,9 +5,10 @@
 #Include "SettingsManager.ahk"
 
 
-class TagCompanionContext {
+class AppContext {
     __New() {
         this.Version := "${VERSION}"
+        this.ReleaseName := "${RELEASE_NAME}"
         this.SettingsManager := SettingsManager(this)
         this.HotstringManager := HotstringManager(this)
 
