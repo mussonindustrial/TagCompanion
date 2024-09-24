@@ -24,7 +24,7 @@ jobs:
           Get-ChildItem -Recurse -File | ForEach-Object { (Get-Content $_.FullName) -replace '\$\{RELEASE_NAME\}', '${{ github.event.inputs.release_name }}' | Set-Content $_.FullName }
 
       - name: Build with AHK v2.0.12
-        uses: nukdokplex/autohotkey-build@v0.1
+        uses: nukdokplex/autohotkey-build@v1
         with:
           version: v2.0.12
           x64: true
