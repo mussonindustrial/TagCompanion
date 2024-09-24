@@ -18,13 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Insert version number
-        uses: richardrigutins/replace-in-files@v2
-        with:
-          files: '**/*.ahk'
-          search-text: '${VERSION}'
-          replacement-text: '${{ github.event.inputs.version }}'
-          encoding: 'utf8'
+      - name: Insert Build Parameters
+        run: |
+          Get-ChildItem -Recurse -File | ForEach-Object { (Get-Content $_.FullName) -replace '\$\{VERSION\}', '${{ github.event.inputs.version }}' | Set-Content $_.FullName }
+          Get-ChildItem -Recurse -File | ForEach-Object { (Get-Content $_.FullName) -replace '\$\{RELEASE_NAME\}', '${{ github.event.inputs.release_name }}' | Set-Content $_.FullName }
 
       - name: Build with AHK v2.0.12
         uses: nukdokplex/autohotkey-build@v0.1
