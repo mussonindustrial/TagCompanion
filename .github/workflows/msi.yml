@@ -32,7 +32,7 @@ jobs:
           in: ""
           out: ""
           x64_suffix: ""
-          icon: /images/favicon.ico
+          icon: images\favicon.ico
           
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.3.1
