@@ -27,7 +27,7 @@ jobs:
         uses: benmusson/ahk2exe-action@v0.1.0
         with:
           in: .\TagCompanion.ahk
-          icon: /images/favicon.ico
+          icon: .\images\favicon.ico
           out: .\TagCompanion.exe
           target: x64
           ahk-tag: v2.0.18
