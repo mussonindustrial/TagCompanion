@@ -24,7 +24,7 @@ jobs:
           Get-ChildItem -Recurse -File | ForEach-Object { (Get-Content $_.FullName) -replace '\$\{RELEASE_NAME\}', '${{ github.event.inputs.release_name }}' | Set-Content $_.FullName }
 
       - name: Build with AHK v2.0.12
-        uses: benmusson/ahk2exe-action@v0.1.0
+        uses: benmusson/ahk2exe-action@v1
         with:
           in: .\TagCompanion.ahk
           icon: .\images\favicon.ico
