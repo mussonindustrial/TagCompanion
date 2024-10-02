@@ -1,0 +1,34 @@
+name: Release Windows Installer
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+        default: 'SNAPSHOT'
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml 
+    with:
+      version: ${{ github.event.inputs.version }}
+  
+  release:
+    runs-on: windows-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-${{ github.event.inputs.version }}
+          path: .\build
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: .\build\*.exe
+          tag_name: '${{ github.event.inputs.version }}'
+          make_latest: true

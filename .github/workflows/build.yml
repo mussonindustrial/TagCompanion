@@ -1,15 +1,22 @@
-name: Windows Installer
+name: Build Windows Installer
 on:
+  push:
+  pull_request:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        description: 'Version'
+        required: false
+        default: 'SNAPSHOT'
+
   workflow_dispatch:
     inputs:
       version:
+        type: string
         description: 'Version'
-        required: true
-        default: '0.0.0'
-      release_name:
-        description: 'Release Name'
-        required: true
-        default: 'draft'
+        required: false
+        default: 'SNAPSHOT'
 
 jobs:
   build:
@@ -21,18 +28,16 @@ jobs:
       - name: Insert Build Parameters
         run: |
           Get-ChildItem -Recurse -File | ForEach-Object { (Get-Content $_.FullName) -replace '\$\{VERSION\}', '${{ github.event.inputs.version }}' | Set-Content $_.FullName }
-          Get-ChildItem -Recurse -File | ForEach-Object { (Get-Content $_.FullName) -replace '\$\{RELEASE_NAME\}', '${{ github.event.inputs.release_name }}' | Set-Content $_.FullName }
 
-      - name: Build with AHK v2.0.12
-        uses: nukdokplex/autohotkey-build@v0.1
+      - name: Build with Ahk2Exe
+        uses: benmusson/ahk2exe-action@v1
         with:
-          version: v2.0.12
-          x64: true
+          ahk-tag: v2.0.18
+          in: .\TagCompanion.ahk
+          out: .\TagCompanion.exe
+          icon: .\images\favicon.ico
+          target: x64
           compression: upx
-          in: ""
-          out: ""
-          x64_suffix: ""
-          icon: /images/favicon.ico
           
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.3.1
@@ -45,10 +50,10 @@ jobs:
           Rename-Item -Path "${{ github.workspace }}\artifacts\TagCompanion.msi" -NewName "TagCompanion-${{ github.event.inputs.version }}.msi"
           $MSI_PATH = cygpath -m ${{ github.workspace }}\artifacts\TagCompanion-${{ github.event.inputs.version }}.msi
           Echo MSI_PATH=$MSI_PATH | Out-File -FilePath ${env:GITHUB_ENV} -Encoding utf8 -Append
-        
-      - name: Release
-        uses: softprops/action-gh-release@v2
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          files: '${{ env.MSI_PATH }}'
-          tag_name: '${{ github.event.inputs.version }}'
-          make_latest: true
+          name: build-${{ github.event.inputs.version }}
+          path: |
+            .*exe
