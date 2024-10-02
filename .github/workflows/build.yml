@@ -29,12 +29,12 @@ jobs:
 
       - name: Set Build Version
         run: echo "VERSION=${{ github.event.inputs.version }}" | Out-File -FilePath $env:GITHUB_ENV -Append
-        if: ${{ github.event.inputs.version }} != ''
+        if: github.event.inputs.version != ''
 
       - name: Set Snapshot Version
         run: |
           echo "VERSION=0.0.0" | Out-File -FilePath $env:GITHUB_ENV -Append
-        if: ${{ github.event.inputs.version }} == ''
+        if:  github.event.inputs.version == ''
 
       - name: Insert Build Parameters
         run: |
