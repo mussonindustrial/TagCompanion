@@ -50,7 +50,7 @@ jobs:
           compression: upx
           
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.3.1
+        uses: microsoft/setup-msbuild@v2
 
       - name: Perform msbuild
         run: msbuild -nologo -restore bundle\TagCompanion.wixproj -p:Configuration=Release -p:ProductVersion=${{ env.VERSION }} -p:TAGCOMPANION_BUILD=${{ github.workspace }}\.build\release -p:OutputPath=${{ github.workspace }}\artifacts -p:RunWixToolsOutOfProc=true
