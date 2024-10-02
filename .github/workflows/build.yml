@@ -66,4 +66,4 @@ jobs:
         with:
           name: build-${{ env.VERSION }}
           path: |
-            .*exe
+            .\artifacts\*.msi
