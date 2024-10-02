@@ -31,6 +31,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./build-artifacts/**/*.msi'
+          files: ./build-artifacts/TagCompanion-${{ github.event.inputs.version }}.msi'
           tag_name: '${{ github.event.inputs.version }}'
           make_latest: true
