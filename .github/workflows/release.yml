@@ -24,13 +24,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-${{ github.event.inputs.version }}
-          path: ${{ github.workspace }}\build-artifacts
+          path: ./build-artifacts
 
       - run: ls -R build-artifacts
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ github.workspace }}\build-artifacts\**\*.msi'
+          files: ./build-artifacts/**/*.msi'
           tag_name: '${{ github.event.inputs.version }}'
           make_latest: true
