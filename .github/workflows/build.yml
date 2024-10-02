@@ -1,0 +1,69 @@
+name: Build Windows Installer
+on:
+  push:
+  pull_request:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        description: 'Version'
+
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: 'Version'
+
+# Cancel in progress workflows on pull_requests.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-using-a-fallback-value
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Build Version
+        run: echo "VERSION=${{ github.event.inputs.version }}" | Out-File -FilePath $env:GITHUB_ENV -Append
+        if: ${{ github.event.inputs.version }} != ''
+
+      - name: Set Snapshot Version
+        run: |
+          echo "VERSION=0.0.0" | Out-File -FilePath $env:GITHUB_ENV -Append
+        if: ${{ github.event.inputs.version }} == ''
+
+      - name: Insert Build Parameters
+        run: |
+          Get-ChildItem -Recurse -File | ForEach-Object { (Get-Content $_.FullName) -replace '\$\{VERSION\}', '${{ env.VERSION }}' | Set-Content $_.FullName }
+
+      - name: Build with Ahk2Exe
+        uses: benmusson/ahk2exe-action@v1
+        with:
+          ahk-tag: v2.0.18
+          in: .\TagCompanion.ahk
+          out: .\TagCompanion.exe
+          target: x64
+          compression: upx
+          
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Perform msbuild
+        run: msbuild -nologo -restore bundle\TagCompanion.wixproj -p:Configuration=Release -p:ProductVersion=${{ env.VERSION }} -p:TAGCOMPANION_BUILD=${{ github.workspace }}\.build\release -p:OutputPath=${{ github.workspace }}\artifacts -p:RunWixToolsOutOfProc=true
+
+      - name: Convert file name
+        run: |
+          Rename-Item -Path "${{ github.workspace }}\artifacts\TagCompanion.msi" -NewName "TagCompanion-${{ env.VERSION }}.msi"
+          $MSI_PATH = cygpath -m ${{ github.workspace }}\artifacts\TagCompanion-${{ env.VERSION }}.msi
+          Echo MSI_PATH=$MSI_PATH | Out-File -FilePath ${env:GITHUB_ENV} -Encoding utf8 -Append
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ env.VERSION }}
+          path: |
+            .\artifacts\*.msi
