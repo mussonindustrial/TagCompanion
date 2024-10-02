@@ -26,6 +26,8 @@ jobs:
           name: build-${{ github.event.inputs.version }}
           path: build-artifacts
 
+      - run: ls -R build-artifacts
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
