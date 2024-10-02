@@ -33,8 +33,7 @@ jobs:
 
       - name: Set Snapshot Version
         run: |
-          $version = Get-Date -Format "yyyy.MMdd.HHmm"
-          echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "VERSION=0.0.0-SNAPSHOT.0 | Out-File -FilePath $env:GITHUB_ENV -Append
         if: ${{ github.event.inputs.version }} == ''
 
       - name: Insert Build Parameters
