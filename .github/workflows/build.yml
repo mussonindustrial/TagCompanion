@@ -46,6 +46,7 @@ jobs:
           ahk-tag: v2.0.18
           in: .\TagCompanion.ahk
           out: .\TagCompanion.exe
+          icon: .\images\favicon.ico
           target: x64
           compression: upx
           
