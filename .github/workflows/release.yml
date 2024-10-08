@@ -26,9 +26,14 @@ jobs:
           name: build-${{ github.event.inputs.version }}
           path: build-artifacts
 
+      - name: Convert file name
+        run: |
+          $MSI_PATH = cygpath -m ${{ github.workspace }}\build-artifacts\TagCompanion-${{ env.VERSION }}.msi
+          Echo MSI_PATH=$MSI_PATH | Out-File -FilePath ${env:GITHUB_ENV} -Encoding utf8 -Append
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: 'build-artifacts\**\*.msi'
+          files: '${{env.MSI_PATH }}'
           tag_name: '${{ github.event.inputs.version }}'
           make_latest: true
