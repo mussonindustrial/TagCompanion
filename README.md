@@ -1,6 +1,6 @@
 # Tag Companion [<img src="https://cdn.mussonindustrial.com/files/public/images/emblem.svg" alt="Musson Industrial Logo" width="90" height="40" align="right">][TagCompanion]
 
-[![Windows Installer](https://github.com/mussonindustrial/TagCompanion/actions/workflows/msi.yml/badge.svg)](https://github.com/mussonindustrial/TagCompanion/actions/workflows/msi.yml)
+[![Windows Installer](https://github.com/mussonindustrial/TagCompanion/actions/workflows/release.yml/badge.svg)](https://github.com/mussonindustrial/TagCompanion/actions/workflows/release.yml)
 
 A Windows tool for faster and easier Studio5000 tag creation.
 
