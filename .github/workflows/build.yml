@@ -46,9 +46,9 @@ jobs:
           ahk-tag: v2.0.18
           in: .\TagCompanion.ahk
           out: .\TagCompanion.exe
-          icon: .\images\favicon.ico
           target: x64
           compression: upx
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
