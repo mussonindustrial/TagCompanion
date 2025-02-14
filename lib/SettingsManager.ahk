@@ -107,4 +107,10 @@ class SettingsManager {
 	HotstringsSetEnabled(Value) {
 		this.settings['hotstrings']['enabled'] := Value
 	}
+
+	SetIncrementMode(Value) {
+		this.settings['increment']['mode'] := Value
+		this.context.MenuManager.UpdateState()
+		this.Autosave()
+	}
 }

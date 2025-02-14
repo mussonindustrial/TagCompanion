@@ -89,12 +89,12 @@ context.HotstringManager.Load(context.SettingsManager.settings['hotstrings']['fi
 
 ; Increment number in selection.
 ^Up:: {
-	ClipboardIncrement("First", context.SettingsManager.settings['increment']['up'])
+	ClipboardIncrement(context.SettingsManager.settings['increment']['mode'], context.SettingsManager.settings['increment']['up'])
 }
 
 ; Decrement number in selection.
 ^Down:: {
-	ClipboardIncrement("First", context.SettingsManager.settings['increment']['down'])
+	ClipboardIncrement(context.SettingsManager.settings['increment']['mode'], context.SettingsManager.settings['increment']['down'])
 }
 
 #SuspendExempt false

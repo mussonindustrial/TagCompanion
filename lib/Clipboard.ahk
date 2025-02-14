@@ -26,7 +26,10 @@ ClipboardIncrement(IncrementMode, offset) {
     SendInput newText
 
     ; Reselect the current region
-    SendInput("^+{Left}")
+    Loop (StrLen(newText)) {
+        SendInput("+{Up}")
+    }
+    ; SendInput("^+{Left}")
     if i > 1 {
         Loop (i - 1) {
             SendInput("^+{Up}")
