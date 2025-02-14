@@ -19,16 +19,16 @@ StringUnescapeCC(String)
 /**
  * Find and increment a number inside a string
  * @param {String} String input string
- * @param {'First'|'Last'} IncrementMode
+ * @param {'first'|'last'} IncrementMode
  * @param {Integer} Offset value to add
  * @returns {String} output string
  */
 StringIncrement(String, IncrementMode, Offset){
     regex := ""
     Switch IncrementMode {
-        case "First":
+        case "first":
             regex := "(\d+)"
-        case "Last":
+        case "last":
             regex := "(\d+)(?!.*\d+)"
     }
 

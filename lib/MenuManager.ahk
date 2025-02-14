@@ -15,6 +15,11 @@ class MenuManager {
         this.FileMenu.Add("Exit", (*) => ExitApp())
         this.FileMenu.SetIcon("&Open Hotstrings...`tCtrl+O","shell32.dll", 4)
         this.FileMenu.SetIcon("&Save Hotstrings`tCtrl+S","shell32.dll", 259)
+
+        this.SettingsMenu := Menu()
+        this.SettingsMenu.Add("Increment First", (*) => context.SettingsManager.SetIncrementMode("first"))
+        this.SettingsMenu.Add("Increment Last", (*) => context.SettingsManager.SetIncrementMode("last"))
+        this.FileMenu.Add()
         
         this.HelpMenu := Menu()
         this.HelpMenu.Add("&Help`tF1", this.MenuHandler)
@@ -23,14 +28,28 @@ class MenuManager {
         this.HelpMenu.SetIcon("&Help`tF1","shell32.dll", 24)
         this.MenuBar := MenuBar()
         this.MenuBar.Add("&File", this.FileMenu)
+        this.MenuBar.Add("Settings", this.SettingsMenu)
         this.MenuBar.Add("Help", this.HelpMenu)
         this.context.GuiMain.MenuBar := this.MenuBar
+        this.UpdateState()
     }
 
 
     MenuHandler(*) {
         ToolTip("Click! This is a sample action.`n", 77, 277)
         SetTimer () => ToolTip(), -3000
+    }
+
+    UpdateState() {
+        settings := this.context.SettingsManager.settings
+        if (settings["increment"]["mode"] == "last") {
+            this.SettingsMenu.Uncheck("Increment First")
+            this.SettingsMenu.Check("Increment Last")
+        } else {
+            this.SettingsMenu.Check("Increment First")
+            this.SettingsMenu.Uncheck("Increment Last")
+        }
+
     }
 
     ControlDelayMenuHandler(ItemName, ItemPos, MenuInstance) {
