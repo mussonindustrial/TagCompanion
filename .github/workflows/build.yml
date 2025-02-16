@@ -48,6 +48,7 @@ jobs:
           out: .\TagCompanion.exe
           target: x64
           compression: upx
+          icon: .\images\favicon.ico
           github-token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Add msbuild to PATH
