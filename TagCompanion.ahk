@@ -2,10 +2,10 @@
 #Requires Autohotkey v2
 #SingleInstance Force
 
-#Include "include\GuiReSizer.ahk"
-#Include "include\LightJson.ahk"
-#Include "lib\AppContext.ahk"
-#Include "lib\clipboard.ahk"
+#Include <GuiReSizer>
+#Include <LightJson>
+#Include <AppContext>
+#Include <Clipboard>
 
 guiCommon := {
 	margin: 8

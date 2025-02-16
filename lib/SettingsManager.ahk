@@ -1,5 +1,5 @@
-#Include "..\include\LightJson.ahk"
-#Include "Strings.ahk"
+#Include <LightJson>
+#Include <Strings>
 
 class SettingsManager {
 

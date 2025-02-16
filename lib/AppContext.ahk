@@ -1,8 +1,8 @@
-#Include "..\include\GuiReSizer.ahk"
+#Include <GuiReSizer>
 
-#Include "HotstringManager.ahk"
-#Include "MenuManager.ahk"
-#Include "SettingsManager.ahk"
+#Include <HotstringManager>
+#Include <MenuManager>
+#Include <SettingsManager>
 
 
 class AppContext {

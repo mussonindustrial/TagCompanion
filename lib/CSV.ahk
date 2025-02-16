@@ -1,4 +1,4 @@
-#Include "Strings.ahk"
+#Include <Strings>
 
 ; Parse a CSV string into an array.
 CSVParse(str) {

@@ -1,9 +1,9 @@
-#Include "..\include\GuiReSizer.ahk"
-#Include "..\include\LightJson.ahk"
+#Include <GuiReSizer>
+#Include <LightJson>
 
-#Include "Strings.ahk"
-#Include "NamedValues.ahk"
-#Include "RegExHotstringHook.ahk"
+#Include <Strings>
+#Include <NamedValues>
+#Include <RegExHotstringHook>
 
 class HotstringManager {
 

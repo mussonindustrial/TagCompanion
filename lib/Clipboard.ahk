@@ -1,4 +1,4 @@
-#Include "strings.ahk"
+#Include <Strings>
 
 ClipboardIncrement(IncrementMode, offset) {
     ; Save the entire clipboard contents.

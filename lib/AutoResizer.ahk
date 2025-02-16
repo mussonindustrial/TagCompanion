@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 #Warn all, off
-#Include GuiResizer.ahk
+#Include <GuiResizer>
 
 class AutoResizer extends GuiReSizer
 {
