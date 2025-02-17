@@ -1,5 +1,5 @@
 # Auto detect text files and perform LF normalization
-* text=auto eol=crlf
+*.ahk text=auto eol=crlf
 
 # Don't modify images
 *.png binary
